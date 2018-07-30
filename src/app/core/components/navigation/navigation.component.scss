@@ -1,0 +1,33 @@
+:host {
+  .button-import {
+    width: 100%;
+    .icon-import {
+      padding-right: 5px;
+    }
+  }
+  .sidenav-container {
+    height: 100%;
+  }
+  .sidenav {
+    width: 200px;
+  }
+  .mat-toolbar {
+    .custom-search {
+      margin: 25px;
+    }
+    &.mat-primary {
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  .mat-sidenav-content {
+    display: -ms-grid !important;
+    display: grid !important;
+  }
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .mat-sidenav-content {
+      display: block !important;
+    }
+  }
+}

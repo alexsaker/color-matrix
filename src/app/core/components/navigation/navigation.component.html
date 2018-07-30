@@ -1,0 +1,36 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async) && (isSidenavOpened$ | async)">
+    <mat-toolbar color="primary">
+      <a (click)="goHome()">{{sidenavTitle}}</a>
+
+    </mat-toolbar>
+    <mat-nav-list>
+        <button mat-list-item mat-raised-button color="primary" class="button-import" (click)="openColorPaletteImportModal()">
+          <mat-icon class="icon-import">add</mat-icon>
+          <span>Import Color Palette</span>
+        </button>
+      <a *ngFor="let cs of (colorPalettes$ | async)" mat-list-item (click)="displayColorPalette(cs.id)">{{cs.label}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">
+          CM
+        </mat-icon>
+      </button>
+      <span>
+        <button type="button" aria-label="Toggle sidenav toolbar" mat-icon-button (click)="toggleSidenav()" *ngIf="!(isHandset$ | async)">
+          <mat-icon aria-label="Toggle sidenav toolbar">
+            menu
+          </mat-icon>
+        </button>
+      </span>
+      <cm-menu-button-toggle  *ngIf="isMatrixToolbarFormVisible$ | async"></cm-menu-button-toggle>
+      <cm-matrix-custom-search  *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search" ></cm-matrix-custom-search>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

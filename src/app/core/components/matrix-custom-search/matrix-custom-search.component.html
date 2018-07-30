@@ -1,0 +1,22 @@
+<div class="custom-search-container">
+  <mat-slide-toggle #customSlideToggle>
+    Custom Search
+  </mat-slide-toggle>
+  <div class="custom-search-form" *ngIf="customSlideToggle.checked" [formGroup]="customPaletteSearch">
+
+    <mat-form-field>
+      <mat-select formControlName="size" placeholder="Size">
+        <mat-option *ngFor="let i of colorPalettesSizes$ | async" [value]="i">
+          {{i}} px
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select formControlName="fontWeight" placeholder="fontWeight">
+        <mat-option *ngFor="let fw of colorPalettesFontWeights$ | async" [value]="fw">
+          {{fw}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

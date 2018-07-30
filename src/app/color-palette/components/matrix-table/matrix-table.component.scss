@@ -1,0 +1,35 @@
+:host {
+  .table-container {
+    table {
+      width: 100%;
+      border: none;
+      border-spacing: unset;
+      border-collapse: collapse;
+      td,
+      th {
+        padding: 15px 0px;
+      }
+      thead th {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 64px;
+      }
+    }
+    .first-header-cell {
+      background-color: #fff;
+    }
+    th.color-header {
+      height: 40px;
+      min-width: 30px;
+      text-align: center;
+      div {
+        -webkit-filter: drop-shadow(1px 1px 1px white);
+        filter: drop-shadow(1px 1px 1px white);
+        // mix-blend-mode: difference;
+        // color: #d3d3d3;
+        transform: translate(0px, 0px) rotate(270deg);
+        white-space: nowrap;
+      }
+    }
+  }
+}

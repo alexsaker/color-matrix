@@ -1,0 +1,7 @@
+<mat-button-toggle-group *ngIf="(colorPalettesMatrices$ |async) as colorPalettesMatrices" #group="matButtonToggleGroup">
+  <ng-container *ngFor="let matrix of colorPalettesMatrices;let idx=index;">
+    <mat-button-toggle  (click)="selectMatrix(colorPalettesMatrices[idx].id)" [checked]="colorPalettesMatrices[idx].checked">
+      {{colorPalettesMatrices[idx].title}} {{colorPalettesMatrices[idx].fontWeight}}
+    </mat-button-toggle>
+  </ng-container>
+</mat-button-toggle-group>

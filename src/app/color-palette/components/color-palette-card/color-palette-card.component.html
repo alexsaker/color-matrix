@@ -1,0 +1,13 @@
+<mat-card class="color-palette-card">
+  <mat-card-header>
+    <mat-card-title>{{colorPalette?.label}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="grid-container">
+      <div *ngFor="let backgroundColor of colorPalette?.data" [style.backgroundColor]="backgroundColor" class="grid-item"></div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button  *ngIf="colorPalette?.id" mat-raised-button color="warn" (click)="deleteColorPalette(colorPalette?.id)">DELETE</button>
+  </mat-card-actions>
+</mat-card>
