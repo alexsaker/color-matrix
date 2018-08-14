@@ -10,7 +10,6 @@ import {
   MatListModule,
   MatSelectModule,
   MatSidenavModule,
-  MatSlideToggleModule,
   MatToolbarModule,
   MatDialogModule,
   MatInputModule
@@ -18,7 +17,6 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatrixCustomSearchComponent } from './components/matrix-custom-search/matrix-custom-search.component';
-import { MenuButtonToggleComponent } from './components/menu-button-toggle/menu-button-toggle.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ColorPaletteImportModalComponent } from './components/color-palette-import-modal/color-palette-import-modal.component';
@@ -33,7 +31,6 @@ const MODULES = [
   MatIconModule,
   MatListModule,
   MatButtonToggleModule,
-  MatSlideToggleModule,
   MatCardModule,
   MatSelectModule,
   ReactiveFormsModule,
@@ -43,7 +40,6 @@ const MODULES = [
 const DECLARATIONS = [
   NavigationComponent,
   PageNotFoundComponent,
-  MenuButtonToggleComponent,
   MatrixCustomSearchComponent,
   ColorPaletteImportModalComponent
 ];

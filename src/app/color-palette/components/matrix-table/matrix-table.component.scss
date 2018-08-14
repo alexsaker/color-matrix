@@ -17,18 +17,26 @@
     }
     .first-header-cell {
       background-color: #fff;
+      z-index: 9999;
+    }
+    th.text-header,
+    td.text-header {
+      div {
+        z-index: 1;
+        color: white;
+        -webkit-filter: drop-shadow(1px 1px 0px #000);
+        filter: drop-shadow(1px 1px 0px #000);
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+          1px 1px 0 #000;
+        font-weight: 400;
+      }
     }
     th.color-header {
       height: 40px;
       min-width: 30px;
       text-align: center;
       div {
-        -webkit-filter: drop-shadow(1px 1px 1px white);
-        filter: drop-shadow(1px 1px 1px white);
-        // mix-blend-mode: difference;
-        // color: #d3d3d3;
         transform: translate(0px, 0px) rotate(270deg);
-        white-space: nowrap;
       }
     }
   }

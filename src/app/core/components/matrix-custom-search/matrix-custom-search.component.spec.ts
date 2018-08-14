@@ -1,17 +1,18 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material';
+import { NgxsModule, Store } from '@ngxs/store';
+import { range } from 'lodash';
+
+import { FontWeight } from '../../../color-palette/enums/font-weight.enum';
+import { SetSuitableMatrix } from '../../../color-palette/store/color-palette.actions';
 import {
   ColorPaletteState,
-  RANGE_START,
-  RANGE_END
+  RANGE_END,
+  RANGE_START
 } from '../../../color-palette/store/color-palette.state';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MatrixCustomSearchComponent } from './matrix-custom-search.component';
-import { NgxsModule, Store } from '@ngxs/store';
-import { FontWeight } from '../../../color-palette/enums/font-weight.enum';
-import { range } from 'lodash';
-import { MatSlideToggleModule, MatSelectModule } from '@angular/material';
-import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
-import { SetSuitableMatrix } from '../../../color-palette/store/color-palette.actions';
 
 export const DEFAULT_STATE = {
   colorPalettes: {
@@ -28,8 +29,8 @@ describe('MatrixCustomSearchComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        BrowserAnimationsModule,
         ReactiveFormsModule,
-        MatSlideToggleModule,
         MatSelectModule,
         NgxsModule.forRoot([ColorPaletteState])
       ],

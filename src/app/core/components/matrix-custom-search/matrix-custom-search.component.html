@@ -1,8 +1,5 @@
 <div class="custom-search-container">
-  <mat-slide-toggle #customSlideToggle>
-    Custom Search
-  </mat-slide-toggle>
-  <div class="custom-search-form" *ngIf="customSlideToggle.checked" [formGroup]="customPaletteSearch">
+  <div class="custom-search-form" [formGroup]="customPaletteSearch">
 
     <mat-form-field>
       <mat-select formControlName="size" placeholder="Size">

@@ -12,6 +12,7 @@
     width: 200px;
   }
   .mat-toolbar {
+    z-index: 9999;
     .custom-search {
       margin: 25px;
     }

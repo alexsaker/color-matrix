@@ -6,7 +6,7 @@
 
     </mat-toolbar>
     <mat-nav-list>
-        <button mat-list-item mat-raised-button color="primary" class="button-import" (click)="openColorPaletteImportModal()">
+        <button mat-list-item mat-raised-button color="accent" class="button-import" (click)="openColorPaletteImportModal()">
           <mat-icon class="icon-import">add</mat-icon>
           <span>Import Color Palette</span>
         </button>
@@ -26,8 +26,8 @@
             menu
           </mat-icon>
         </button>
+        Colors for all
       </span>
-      <cm-menu-button-toggle  *ngIf="isMatrixToolbarFormVisible$ | async"></cm-menu-button-toggle>
       <cm-matrix-custom-search  *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search" ></cm-matrix-custom-search>
     </mat-toolbar>
     <!-- Add Content Here -->
