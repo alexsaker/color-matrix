@@ -4,6 +4,7 @@ import { Store } from '@ngxs/store';
 import { Component, OnInit, Input } from '@angular/core';
 import { DeleteColorPalette } from '../../store/color-palette.actions';
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
+import { Navigate } from '../../../shared/store/router.state';
 
 @Component({
   selector: 'cm-color-palette-card',
@@ -11,7 +12,8 @@ import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confir
   styleUrls: ['./color-palette-card.component.scss']
 })
 export class ColorPaletteCardComponent implements OnInit {
-  @Input() colorPalette: ColorPalette;
+  @Input()
+  colorPalette: ColorPalette;
   constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit() {}
@@ -32,5 +34,9 @@ export class ColorPaletteCardComponent implements OnInit {
         this.store.dispatch(new DeleteColorPalette(id));
       }
     });
+  }
+
+  public goToColorPalette(): void {
+    this.store.dispatch(new Navigate('/color-palette/' + this.colorPalette.id));
   }
 }

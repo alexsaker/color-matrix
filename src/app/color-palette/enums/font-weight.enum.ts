@@ -1,6 +1,6 @@
 export enum FontWeight {
-  LIGHT = 'light',
+  LIGHTER = 'lighter',
   NORMAL = 'normal',
   BOLD = 'bold',
-  ALL = 'All weights'
+  BOLDER = 'bolder'
 }

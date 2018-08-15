@@ -1,3 +1,4 @@
+import { ColorMatrixSelection } from './../models/color-matrix.model';
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar
@@ -15,22 +16,19 @@ import {
   SaveColorPalette,
   SetErrors,
   SetSelectedColorPalette,
-  SetSelectedMatrix,
-  SetSuitableMatrix
+  SetSelectedMatrix
 } from './color-palette.actions';
 import { Store } from '@ngxs/store';
 
-export const RANGE_START = 8;
-export const RANGE_END = 50;
+export const RANGE_START = 12;
+export const RANGE_END = 25;
 
 export interface ColorPaletteStateModel {
   ids: string[];
   entities: { [key: string]: ColorPalette };
   error: Error;
   selected: string;
-  selectedMatrix: number;
-  matrices: ColorPaletteMatrix[];
-  sizeGroup: number[];
+  selectedMatrix: ColorMatrixSelection;
   sizes: number[];
   fontWeights: string[];
 }
@@ -41,33 +39,14 @@ export interface ColorPaletteStateModel {
     entities: {},
     error: null,
     selected: null,
-    selectedMatrix: 1,
-    matrices: [
-      {
-        id: 1,
-        size: 11,
-        title: '11 > 23 px',
-        fontWeight: FontWeight.NORMAL,
-        checked: true
-      },
-      {
-        id: 2,
-        size: 19,
-        title: '19 > 23 px',
-        fontWeight: FontWeight.BOLD,
-        checked: false
-      },
-      {
-        id: 3,
-        size: 24,
-        title: '+24 px',
-        fontWeight: FontWeight.ALL,
-        checked: false
-      }
-    ],
-    sizeGroup: [11, 19, 24],
+    selectedMatrix: { size: 12, fontWeight: FontWeight.NORMAL },
     sizes: range(RANGE_START, RANGE_END),
-    fontWeights: [FontWeight.LIGHT, FontWeight.NORMAL, FontWeight.BOLD]
+    fontWeights: [
+      FontWeight.LIGHTER,
+      FontWeight.NORMAL,
+      FontWeight.BOLD,
+      FontWeight.BOLDER
+    ]
   }
 })
 export class ColorPaletteState implements NgxsOnInit {
@@ -75,10 +54,7 @@ export class ColorPaletteState implements NgxsOnInit {
   static colorPalettes(state: ColorPaletteStateModel) {
     return Object.keys(state.entities).map(key => state.entities[key]);
   }
-  @Selector()
-  static colorPaletteMatrices(state: ColorPaletteStateModel) {
-    return state.matrices;
-  }
+
   @Selector()
   static colorPaletteSizes(state: ColorPaletteStateModel) {
     return state.sizes;
@@ -89,13 +65,6 @@ export class ColorPaletteState implements NgxsOnInit {
   }
 
   @Selector()
-  static selectedMatrix(state: ColorPaletteStateModel) {
-    return state.matrices
-      .filter(matrix => matrix.id === state.selectedMatrix)
-      .shift();
-  }
-
-  @Selector()
   static colorPaletteIds(state: ColorPaletteStateModel) {
     return state.ids;
   }
@@ -103,7 +72,10 @@ export class ColorPaletteState implements NgxsOnInit {
   static selectedColorPalette(state: ColorPaletteStateModel): ColorPalette {
     return state.selected ? state.entities[state.selected] : null;
   }
-
+  @Selector()
+  static selectedMatrix(state: ColorPaletteStateModel) {
+    return state.selectedMatrix;
+  }
   constructor(
     private store: Store,
     private colorPaletteService: ColorPaletteService
@@ -221,39 +193,8 @@ export class ColorPaletteState implements NgxsOnInit {
     action: SetSelectedMatrix
   ) {
     const state = ctx.getState();
-    const matrices = state.matrices.map(
-      matrix =>
-        action.id === matrix.id
-          ? { ...matrix, checked: true }
-          : { ...matrix, checked: false }
-    );
-    ctx.patchState({ selectedMatrix: action.id, matrices: matrices });
-  }
-
-  @Action(SetSuitableMatrix)
-  setSuitableMatrix(
-    ctx: StateContext<ColorPaletteStateModel>,
-    action: SetSuitableMatrix
-  ) {
-    if (!!action.size && action.size < 19) {
-      ctx.dispatch(new SetSelectedMatrix(1));
-    } else if (!!action.size && action.size >= 19 && action.size < 23) {
-      if (!!action.fontWeight) {
-        if (
-          action.fontWeight === FontWeight.NORMAL ||
-          action.fontWeight === FontWeight.LIGHT
-        ) {
-          ctx.dispatch(new SetSelectedMatrix(1));
-        } else if (action.fontWeight === FontWeight.BOLD) {
-          ctx.dispatch(new SetSelectedMatrix(2));
-        }
-      } else {
-        ctx.dispatch(new SetSelectedMatrix(1));
-      }
-    } else if (!!action.size && action.size > 23) {
-      ctx.dispatch(new SetSelectedMatrix(3));
-    } else {
-      ctx.dispatch(new SetSelectedMatrix(1));
-    }
+    ctx.patchState({
+      selectedMatrix: { size: action.size, fontWeight: action.fontWeight }
+    });
   }
 }

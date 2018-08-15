@@ -26,19 +26,5 @@ export class SetSelectedColorPalette {
 
 export class SetSelectedMatrix {
   static readonly type = '[ColorPalette] SetSelectedMatrix';
-  constructor(public id: number) {}
-}
-export class SetSuitableMatrix {
-  static readonly type = '[ColorPalette] SetSuitableMatrix';
   constructor(public size: number, public fontWeight: FontWeight) {}
-}
-
-export class LoadColorMatrix {
-  static readonly type = '[ColorPalette] LoadColorPalette';
-  constructor(public colorPalette: ColorPalette, public size: number) {}
-}
-
-export class LoadColorMatrices {
-  static readonly type = '[ColorPalette] LoadColorMatrices';
-  constructor(public colorPalette: ColorPalette, public sizes: number[]) {}
 }

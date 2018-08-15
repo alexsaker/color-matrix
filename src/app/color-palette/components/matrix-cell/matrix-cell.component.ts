@@ -5,7 +5,7 @@ import {
   Input,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { ColorMatrixElement } from '../../models/color-matrix.model';
+import { ColorMatrixCell } from '../../models/color-matrix.model';
 
 @Component({
   selector: 'cm-matrix-cell',
@@ -14,10 +14,11 @@ import { ColorMatrixElement } from '../../models/color-matrix.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatrixCellComponent implements OnInit {
-  @Input() data: ColorMatrixElement;
-  @Input() type: string;
+  @Input()
+  data: ColorMatrixCell;
+  @Input()
+  type: string;
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

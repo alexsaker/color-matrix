@@ -1,13 +1,21 @@
 <mat-card class="color-palette-card">
   <mat-card-header>
     <mat-card-title>{{colorPalette?.label}}</mat-card-title>
+    <div *ngIf="colorPalette?.id">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteColorPalette(colorPalette?.id)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete palette</span>
+        </button>
+      </mat-menu>
+    </div>
   </mat-card-header>
   <mat-card-content>
-    <div class="grid-container">
+    <div (click)="goToColorPalette()" class="grid-container">
       <div *ngFor="let backgroundColor of colorPalette?.data" [style.backgroundColor]="backgroundColor" class="grid-item"></div>
     </div>
   </mat-card-content>
-  <mat-card-actions>
-    <button  *ngIf="colorPalette?.id" mat-raised-button color="warn" (click)="deleteColorPalette(colorPalette?.id)">DELETE</button>
-  </mat-card-actions>
 </mat-card>

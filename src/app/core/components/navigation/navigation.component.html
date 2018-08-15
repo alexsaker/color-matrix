@@ -8,7 +8,7 @@
     <mat-nav-list>
         <button mat-list-item mat-raised-button color="accent" class="button-import" (click)="openColorPaletteImportModal()">
           <mat-icon class="icon-import">add</mat-icon>
-          <span>Import Color Palette</span>
+          <span>New color palette</span>
         </button>
       <a *ngFor="let cs of (colorPalettes$ | async)" mat-list-item (click)="displayColorPalette(cs.id)">{{cs.label}}</a>
     </mat-nav-list>

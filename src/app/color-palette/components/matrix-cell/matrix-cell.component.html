@@ -1,4 +1,11 @@
 <div class="cell-container" [ngStyle]="data?.style" title="{{data?.title}}">
-  <div class="compliance">{{data?.compliance}}</div>
+  <div class="compliance">
+    <ng-container *ngIf="data?.compliance !== 'X'">
+      {{data?.compliance}}
+    </ng-container>
+    <ng-container *ngIf="data?.compliance === 'X'">
+      <mat-icon>clear</mat-icon>
+    </ng-container>
+  </div>
   <div class="ratio">{{data?.ratio}}</div>
 </div>

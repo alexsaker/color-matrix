@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ColorMatrixElement } from '../models/color-matrix.model';
+import { ColorMatrixCell } from '../models/color-matrix.model';
 import { ColorPalette } from '../models/color-palette.model';
 import { colorConvertor } from '../shared/utils';
+import { FontWeight } from '../enums/font-weight.enum';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,8 +12,9 @@ export class ColorMatrixService {
   public computeColorMatrixData(
     backgroundColor: string,
     foregroundColor: string,
-    size: number
-  ): ColorMatrixElement {
+    size: number,
+    fontWeight: FontWeight
+  ): ColorMatrixCell {
     const LtextColor = this.convertToArray(
       colorConvertor.toRgb(backgroundColor, false)
     );
@@ -20,6 +22,8 @@ export class ColorMatrixService {
       colorConvertor.toRgb(foregroundColor, false)
     );
     const style = {
+      'font-size': size + 'px',
+      'font-weight': fontWeight,
       'background-color': backgroundColor,
       color: foregroundColor
     };

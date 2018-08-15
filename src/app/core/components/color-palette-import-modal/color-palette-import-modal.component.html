@@ -1,29 +1,29 @@
 <div  class="import-form-container" [formGroup]="importFormGroup">
-<div mat-dialog-title>Import Color Palette</div>
+<div mat-dialog-title>New color palette</div>
 <div mat-dialog-content class="import-form-content">
     <mat-form-field 
       hintLabel="Min {{LABEL_MIN_LENGTH}} Max {{LABEL_MAX_LENGTH}} characters">
-        <input formControlName="label" matInput placeholder="Label">
-        <mat-error *ngIf="label.errors?.required">Field is required</mat-error>
-        <mat-error *ngIf="label.errors?.minlength">The minimum length is set to {{LABEL_MIN_LENGTH}}</mat-error>
-        <mat-error *ngIf="label.errors?.maxlength">The maximum length is set to {{LABEL_MAX_LENGTH}}</mat-error>
+        <input formControlName="title" matInput placeholder="Title">
+        <mat-error *ngIf="title.errors?.required">Field is required</mat-error>
+        <mat-error *ngIf="title.errors?.minlength">The minimum length is set to {{LABEL_MIN_LENGTH}}</mat-error>
+        <mat-error *ngIf="title.errors?.maxlength">The maximum length is set to {{LABEL_MAX_LENGTH}}</mat-error>
       </mat-form-field>
       
-      <mat-form-field  hintLabel="Please enter your color palette as a JSON array">
+      <mat-form-field  hintLabel='Please enter your color palette as a JSON array of string of colors (example: ["#123456","#234567","#345678"])'>
         <textarea 
         formControlName="data" 
         matInput  
         rows="14"  
-        placeholder="Color Palette" 
+        placeholder="Colors" 
        >
       </textarea>
       <mat-error *ngIf="data.errors?.required">Field is required</mat-error>
-      <mat-error *ngIf="data.errors?.invalidFormat">JSON format is invalid</mat-error>
+      <mat-error *ngIf="data.errors?.invalidFormat">The format is invalid (example: ["#123456","#234567","#345678"]</mat-error>
       </mat-form-field>
 
 </div>
 <div mat-dialog-actions>
     <button mat-raised-button color="default"  (click)="cancel()">Cancel</button>
-    <button mat-raised-button [disabled]="importFormGroup.pristine || importFormGroup.invalid" color="primary" class="button-import" (click)="importColorPalette()">Save</button>
+    <button mat-raised-button [disabled]="importFormGroup.pristine || importFormGroup.invalid" color="accent" class="button-import" (click)="importColorPalette()">Save</button>
 </div>
 </div>

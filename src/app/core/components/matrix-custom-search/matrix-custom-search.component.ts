@@ -1,11 +1,12 @@
-import { FontWeight } from '../../../color-palette/enums/font-weight.enum';
 import { Component, OnInit } from '@angular/core';
-
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { ColorMatrixSelection } from '../../../color-palette/models/color-matrix.model';
+import { SetSelectedMatrix } from '../../../color-palette/store/color-palette.actions';
 import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
-import { Observable } from 'rxjs';
-import { SetSuitableMatrix } from '../../../color-palette/store/color-palette.actions';
 
 @Component({
   selector: 'cm-matrix-custom-search',
@@ -13,11 +14,16 @@ import { SetSuitableMatrix } from '../../../color-palette/store/color-palette.ac
   styleUrls: ['./matrix-custom-search.component.scss']
 })
 export class MatrixCustomSearchComponent implements OnInit {
+  @Select(ColorPaletteState.selectedMatrix)
+  selectedMatrix$: Observable<ColorMatrixSelection>;
   @Select(ColorPaletteState.colorPaletteSizes)
   colorPalettesSizes$: Observable<string[]>;
   @Select(ColorPaletteState.colorPaletteFontWeights)
   colorPalettesFontWeights$: Observable<string[]>;
+
   public customPaletteSearch: FormGroup;
+  private stopSelectedMatrixSubscription = new Subject<boolean>();
+
   constructor(private store: Store) {}
 
   ngOnInit() {
@@ -25,12 +31,22 @@ export class MatrixCustomSearchComponent implements OnInit {
       size: new FormControl(),
       fontWeight: new FormControl()
     });
-    this.customPaletteSearch.valueChanges.subscribe(changes => {
-      this.setSelectedMatrix(changes.size, changes.fontWeight);
-    });
-  }
 
-  private setSelectedMatrix(size: number, fontWeight: FontWeight): void {
-    this.store.dispatch(new SetSuitableMatrix(size, fontWeight));
+    this.selectedMatrix$
+      .pipe(takeUntil(this.stopSelectedMatrixSubscription))
+      .subscribe(defaultSelectedMatrix => {
+        if (!!defaultSelectedMatrix) {
+          this.stopSelectedMatrixSubscription.next(true);
+          this.customPaletteSearch.setValue({
+            size: defaultSelectedMatrix.size,
+            fontWeight: defaultSelectedMatrix.fontWeight
+          });
+          this.customPaletteSearch.valueChanges.subscribe(changes => {
+            this.store.dispatch(
+              new SetSelectedMatrix(changes.size, changes.fontWeight)
+            );
+          });
+        }
+      });
   }
 }

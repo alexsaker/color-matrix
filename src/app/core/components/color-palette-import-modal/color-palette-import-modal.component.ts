@@ -14,8 +14,8 @@ export class ColorPaletteImportModalComponent implements OnInit {
   public importFormGroup: FormGroup;
   public readonly LABEL_MIN_LENGTH = 3;
   public readonly LABEL_MAX_LENGTH = 50;
-  public get label() {
-    return this.importFormGroup.get('label');
+  public get title() {
+    return this.importFormGroup.get('title');
   }
 
   public get data() {
@@ -28,7 +28,7 @@ export class ColorPaletteImportModalComponent implements OnInit {
 
   ngOnInit() {
     this.importFormGroup = new FormGroup({
-      label: new FormControl('', [
+      title: new FormControl('', [
         Validators.required,
         Validators.minLength(this.LABEL_MIN_LENGTH),
         Validators.maxLength(this.LABEL_MAX_LENGTH)
@@ -39,7 +39,7 @@ export class ColorPaletteImportModalComponent implements OnInit {
 
   public importColorPalette() {
     this.dialogRef.close({
-      label: this.label.value,
+      title: this.title.value,
       data: JSON.parse(this.data.value)
     });
   }

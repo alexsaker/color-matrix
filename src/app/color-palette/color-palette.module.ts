@@ -5,7 +5,8 @@ import {
   MatButtonModule,
   MatCardModule,
   MatDialogModule,
-  MatIconModule
+  MatIconModule,
+  MatMenuModule
 } from '@angular/material';
 import { NgxsModule } from '@ngxs/store';
 
@@ -29,6 +30,7 @@ const MODULES = [
   MatCardModule,
   MatButtonModule,
   MatDialogModule,
+  MatMenuModule,
   NgxsModule.forFeature([ColorPaletteState])
 ];
 

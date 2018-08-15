@@ -1,3 +1,4 @@
+import { FontWeight } from '../../enums/font-weight.enum';
 import { ColorPalette } from '../../models/color-palette.model';
 import {
   Component,
@@ -7,6 +8,7 @@ import {
 } from '@angular/core';
 import { ColorPaletteMatrix } from '../../models/color-palette-matrix.model';
 import { ColorMatrixService } from '../../services/color-matrix.service';
+import { ColorMatrixCell } from '../../models/color-matrix.model';
 
 @Component({
   selector: 'cm-matrix-table',
@@ -15,19 +17,23 @@ import { ColorMatrixService } from '../../services/color-matrix.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatrixTableComponent implements OnInit {
-  @Input() colorPalette: ColorPalette;
-  @Input() selectedMatrix: ColorPaletteMatrix;
+  @Input()
+  colorPalette: ColorPalette;
+  @Input()
+  selectedMatrix: ColorPaletteMatrix;
   constructor(private colorMatrixService: ColorMatrixService) {}
   ngOnInit() {}
   public computeColorMatrixData(
     backgroundColor: string,
     foregroundColor: string,
-    size: number
-  ) {
+    size: number,
+    fontWeight: FontWeight
+  ): ColorMatrixCell {
     return this.colorMatrixService.computeColorMatrixData(
       backgroundColor,
       foregroundColor,
-      size
+      size,
+      fontWeight
     );
   }
 }

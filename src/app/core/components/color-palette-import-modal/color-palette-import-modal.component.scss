@@ -1,30 +1,19 @@
 :host {
   .import-form-container {
     .import-form-content {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
       flex-flow: column nowrap;
-      -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
       flex: 1 1 auto;
       min-height: 350px;
       .mat-form-field {
         width: 90%;
       }
       .form-label {
-        -webkit-box-flex: 1;
-        -ms-flex: 1;
         flex: 1;
         padding: 10px;
       }
     }
     .mat-dialog-actions {
-      -webkit-box-pack: end;
-      -ms-flex-pack: end;
       justify-content: flex-end;
     }
   }
