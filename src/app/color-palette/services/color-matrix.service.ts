@@ -70,7 +70,7 @@ export class ColorMatrixService {
     return ratio + ':1';
   }
   public getWCAGLevel(size: number, ratio: number, fontWeight: FontWeight) {
-    let level;
+    let level = 'X';
     if (ratio >= 7) {
       level = 'AAA';
     } else if (ratio >= 4.5 && ratio < 7) {
@@ -109,8 +109,6 @@ export class ColorMatrixService {
       } else if (size >= 24) {
         level = 'AA';
       }
-    } else {
-      level = 'X';
     }
     return level;
   }
