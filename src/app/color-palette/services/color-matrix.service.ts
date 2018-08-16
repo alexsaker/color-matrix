@@ -101,16 +101,6 @@ export class ColorMatrixService {
           fontWeight === FontWeight.SIX_HUNDRED)
       ) {
         level = 'AA';
-      } else if (
-        ratio >= 4.5 &&
-        ratio < 7 &&
-        (fontWeight === FontWeight.BOLD ||
-          fontWeight === FontWeight.BOLDER ||
-          fontWeight === FontWeight.ONE_HUNDRED ||
-          fontWeight === FontWeight.SEVEN_HUNDRED ||
-          fontWeight === FontWeight.EIGHT_HUNDRED)
-      ) {
-        level = 'AAA';
       } else if (ratio > 7) {
         level = 'AAA';
       }
