@@ -27,8 +27,7 @@ export class MatrixCellComponent implements OnInit {
       ? {
           color: style['background-color'],
           'background-color': style['color'],
-          'border-radius': '25px',
-          border: '2px solid' + style['background-color']
+          'border-radius': '25px'
         }
       : {};
   }
