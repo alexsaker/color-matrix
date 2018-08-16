@@ -1,7 +1,7 @@
 <div class="cell-container" [ngStyle]="data?.style" title="{{data?.title}}">
   <div class="compliance">
     <ng-container *ngIf="data?.compliance !== 'X'">
-      {{data?.compliance}}
+      <span [ngStyle]="setBadgeStyle(data?.style)">{{data?.compliance}}</span>
     </ng-container>
     <ng-container *ngIf="data?.compliance === 'X'">
       <mat-icon>clear</mat-icon>

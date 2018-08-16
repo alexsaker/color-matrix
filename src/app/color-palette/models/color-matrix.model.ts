@@ -6,7 +6,7 @@ export interface ColorMatrixCell {
   style: Object;
   title: string;
   compliance: string;
-  ratio: string;
+  ratio: number;
 }
 export interface ColorMatrixSelection {
   size: number;

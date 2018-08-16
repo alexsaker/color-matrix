@@ -21,4 +21,15 @@ export class MatrixCellComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  public setBadgeStyle(style: Object): Object {
+    return style && style['color'] && style['background-color']
+      ? {
+          color: style['background-color'],
+          'background-color': style['color'],
+          'border-radius': '25px',
+          border: '2px solid' + style['background-color']
+        }
+      : {};
+  }
 }

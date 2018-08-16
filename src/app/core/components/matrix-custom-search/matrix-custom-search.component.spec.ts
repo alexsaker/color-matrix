@@ -6,20 +6,26 @@ import { NgxsModule, Store } from '@ngxs/store';
 import { range } from 'lodash';
 
 import { FontWeight } from '../../../color-palette/enums/font-weight.enum';
-import { SetSuitableMatrix } from '../../../color-palette/store/color-palette.actions';
 import {
   ColorPaletteState,
   RANGE_END,
   RANGE_START
 } from '../../../color-palette/store/color-palette.state';
 import { MatrixCustomSearchComponent } from './matrix-custom-search.component';
+import { SetSelectedMatrix } from '../../../color-palette/store/color-palette.actions';
 
 export const DEFAULT_STATE = {
   colorPalettes: {
     ids: ['49805fbc-11da-40ec-be35-c10774f22739'],
     sizeGroup: [11, 19, 24],
     sizes: range(RANGE_START, RANGE_END),
-    fontWeights: [FontWeight.LIGHT, FontWeight.NORMAL, FontWeight.BOLD]
+    selectedMatrix: { size: 12, fontWeight: FontWeight.LIGHTER },
+    fontWeights: [
+      FontWeight.LIGHTER,
+      FontWeight.NORMAL,
+      FontWeight.BOLD,
+      FontWeight.BOLDER
+    ]
   }
 };
 describe('MatrixCustomSearchComponent', () => {
@@ -61,25 +67,26 @@ describe('MatrixCustomSearchComponent', () => {
     ).toBeTruthy();
   });
 
-  it('should call setSelectedMatrix on size change', () => {
-    spyOn<any>(component, 'setSelectedMatrix');
-    component.customPaletteSearch.patchValue({ size: 8 });
-    expect(component['setSelectedMatrix']).toHaveBeenCalledWith(8, null);
-  });
-  it('should call setSelectedMatrix on fontWeight change', () => {
-    spyOn<any>(component, 'setSelectedMatrix');
-    component.customPaletteSearch.patchValue({ fontWeight: FontWeight.NORMAL });
-    expect(component['setSelectedMatrix']).toHaveBeenCalledWith(
-      null,
-      FontWeight.NORMAL
+  it('should dispatch setSelectedMatrix on size change', () => {
+    spyOn<any>(store, 'dispatch');
+    const expectedFontWeight = FontWeight.LIGHTER;
+    const expectedSize = 24;
+    component.customPaletteSearch.patchValue({
+      size: expectedSize
+    });
+    expect(store.dispatch).toHaveBeenCalledWith(
+      new SetSelectedMatrix(expectedSize, expectedFontWeight)
     );
   });
-
-  it('should dispatch SetSuitableMatrix action on setSelectedMatrix call', () => {
-    spyOn(store, 'dispatch');
-    component['setSelectedMatrix'](8, FontWeight.NORMAL);
+  it('should call setSelectedMatrix on fontWeight change', () => {
+    spyOn<any>(store, 'dispatch');
+    const expectedFontWeight = FontWeight.NORMAL;
+    const expectedSize = 12;
+    component.customPaletteSearch.patchValue({
+      fontWeight: expectedFontWeight
+    });
     expect(store.dispatch).toHaveBeenCalledWith(
-      new SetSuitableMatrix(8, FontWeight.NORMAL)
+      new SetSelectedMatrix(expectedSize, expectedFontWeight)
     );
   });
 });

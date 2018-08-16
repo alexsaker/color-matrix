@@ -26,11 +26,11 @@ export class ColorMatrixService {
       'font-weight': fontWeight,
       'background-color': backgroundColor,
       color: foregroundColor
-    };
+    } as Object;
     const ratio = this.calculateRatio(
       this.contrast(LtextColor, LbackgroundColor)
     );
-    const level = this.getWCAGLevel(size, ratio);
+    const level = this.getWCAGLevel(size, ratio, fontWeight);
     return {
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
@@ -55,47 +55,71 @@ export class ColorMatrixService {
     );
   }
 
-  public convertToArray(color) {
+  public convertToArray(color): number[] {
     color = color.slice(1, -1);
     return color.split(', ').map(Number);
   }
-  public calculateRatio(contrast) {
+  public calculateRatio(contrast): number {
     let ratio = 1 / contrast;
     if (ratio < 1) {
       ratio = 1 / ratio;
     }
-    return ratio.toFixed(2);
+    return Number(ratio.toFixed(2));
   }
-  public setRatioTitle(ratio) {
+  public setRatioTitle(ratio: number): string {
     return ratio + ':1';
   }
-  public getWCAGLevel(size, ratio) {
+  public getWCAGLevel(size: number, ratio: number, fontWeight: FontWeight) {
     let level = 'X';
-    if (size >= 11) {
-      if (ratio >= 4.5) {
-        if (ratio >= 7) {
-          level = 'AAA';
-        } else {
-          level = 'AA';
-        }
+    if (size >= 11 && size < 18.66) {
+      if (ratio >= 4.5 && ratio < 7) {
+        level = 'AA';
+      } else if (ratio > 7) {
+        level = 'AAA';
       }
     }
-    if (size >= 18) {
-      if (ratio >= 3) {
-        if (ratio >= 4.5) {
-          level = 'AAA';
-        } else {
-          level = 'AA';
-        }
+    if (size >= 18.66 && size < 24) {
+      if (
+        ratio >= 3 &&
+        (fontWeight === FontWeight.BOLD ||
+          fontWeight === FontWeight.BOLDER ||
+          fontWeight === FontWeight.ONE_HUNDRED ||
+          fontWeight === FontWeight.SEVEN_HUNDRED ||
+          fontWeight === FontWeight.EIGHT_HUNDRED)
+      ) {
+        level = 'AA';
+      } else if (
+        ratio >= 4.5 &&
+        ratio < 7 &&
+        (fontWeight === FontWeight.LIGHTER ||
+          fontWeight === FontWeight.NORMAL ||
+          fontWeight === FontWeight.ONE_HUNDRED ||
+          fontWeight === FontWeight.TWO_HUNDRED ||
+          fontWeight === FontWeight.THREE_HUNDRED ||
+          fontWeight === FontWeight.FOUR_HUNDRED ||
+          fontWeight === FontWeight.FIVE_HUNDRED ||
+          fontWeight === FontWeight.SIX_HUNDRED)
+      ) {
+        level = 'AA';
+      } else if (
+        ratio >= 4.5 &&
+        ratio < 7 &&
+        (fontWeight === FontWeight.BOLD ||
+          fontWeight === FontWeight.BOLDER ||
+          fontWeight === FontWeight.ONE_HUNDRED ||
+          fontWeight === FontWeight.SEVEN_HUNDRED ||
+          fontWeight === FontWeight.EIGHT_HUNDRED)
+      ) {
+        level = 'AAA';
+      } else if (ratio > 7) {
+        level = 'AAA';
       }
     }
     if (size >= 24) {
-      if (ratio >= 3) {
-        if (ratio >= 4.5) {
-          level = 'AAA';
-        } else {
-          level = 'AA';
-        }
+      if (ratio >= 3 && ratio < 4.5) {
+        level = 'AA';
+      } else if (ratio > 4.5) {
+        level = 'AAA';
       }
     }
     return level;

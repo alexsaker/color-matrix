@@ -6,7 +6,8 @@ import {
   MatCardModule,
   MatDialog,
   MatDialogModule,
-  MatDialogRef
+  MatDialogRef,
+  MatMenuModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule, Store } from '@ngxs/store';
@@ -29,6 +30,7 @@ describe('ColorPaletteCardComponent', () => {
         MatDialogModule,
         MatButtonModule,
         MatCardModule,
+        MatMenuModule,
         NgxsModule.forRoot([ColorPaletteState])
       ],
       providers: [

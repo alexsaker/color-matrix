@@ -45,7 +45,7 @@ describe('ColorPaletteImportModalComponent', () => {
   });
   it('should initialize', () => {
     expect(
-      component.importFormGroup.get('label') instanceof FormControl
+      component.importFormGroup.get('title') instanceof FormControl
     ).toBeTruthy();
     expect(
       component.importFormGroup.get('data') instanceof FormControl
@@ -57,33 +57,33 @@ describe('ColorPaletteImportModalComponent', () => {
 
   it('should return a valid form', () => {
     expect(component.importFormGroup.valid).toBeFalsy();
-    component.importFormGroup.controls['label'].setValue('test');
+    component.importFormGroup.controls['title'].setValue('test');
     component.importFormGroup.controls['data'].setValue('["#777"]');
-    const label = component.importFormGroup.controls['label'];
+    const title = component.importFormGroup.controls['title'];
     const data = component.importFormGroup.controls['data'];
-    expect(label.valid).toBeTruthy();
+    expect(title.valid).toBeTruthy();
     expect(data.valid).toBeTruthy();
     expect(component.importFormGroup.valid).toBeTruthy();
   });
 
-  it('should return an invalid form when label is not set', () => {
-    component.importFormGroup.controls['label'].setValue(undefined);
-    const label = component.importFormGroup.controls['label'];
-    expect(label.valid).toBeFalsy();
+  it('should return an invalid form when title is not set', () => {
+    component.importFormGroup.controls['title'].setValue(undefined);
+    const title = component.importFormGroup.controls['title'];
+    expect(title.valid).toBeFalsy();
   });
 
-  it('should return an invalid form when label length is under 3', () => {
-    component.importFormGroup.controls['label'].setValue('te');
-    const label = component.importFormGroup.controls['label'];
-    expect(label.valid).toBeFalsy();
+  it('should return an invalid form when title length is under 3', () => {
+    component.importFormGroup.controls['title'].setValue('te');
+    const title = component.importFormGroup.controls['title'];
+    expect(title.valid).toBeFalsy();
   });
 
-  it('should return an invalid form when label length is over 50', () => {
-    component.importFormGroup.controls['label'].setValue(
+  it('should return an invalid form when title length is over 50', () => {
+    component.importFormGroup.controls['title'].setValue(
       new Array(51 + 1).join('t')
     );
-    const label = component.importFormGroup.controls['label'];
-    expect(label.valid).toBeFalsy();
+    const title = component.importFormGroup.controls['title'];
+    expect(title.valid).toBeFalsy();
   });
 
   it('should return an invalid form when data is not set', () => {

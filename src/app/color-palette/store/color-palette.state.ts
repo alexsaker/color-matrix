@@ -45,7 +45,16 @@ export interface ColorPaletteStateModel {
       FontWeight.LIGHTER,
       FontWeight.NORMAL,
       FontWeight.BOLD,
-      FontWeight.BOLDER
+      FontWeight.BOLDER,
+      FontWeight.ONE_HUNDRED,
+      FontWeight.TWO_HUNDRED,
+      FontWeight.THREE_HUNDRED,
+      FontWeight.FOUR_HUNDRED,
+      FontWeight.FIVE_HUNDRED,
+      FontWeight.SIX_HUNDRED,
+      FontWeight.SEVEN_HUNDRED,
+      FontWeight.EIGHT_HUNDRED,
+      FontWeight.NINE_HUNDRED
     ]
   }
 })
