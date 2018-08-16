@@ -70,17 +70,35 @@ export class ColorMatrixService {
     return ratio + ':1';
   }
   public getWCAGLevel(size: number, ratio: number, fontWeight: FontWeight) {
-    let level = 'X';
-    if (size >= 11 && size < 18.66) {
-      if (ratio >= 4.5 && ratio < 7) {
+    let level;
+    if (ratio >= 7) {
+      level = 'AAA';
+    } else if (ratio >= 4.5 && ratio < 7) {
+      if (size < 18.66) {
         level = 'AA';
-      } else if (ratio > 7) {
+      } else if (size >= 18.66 && size < 24) {
+        if (
+          fontWeight === FontWeight.LIGHTER ||
+          fontWeight === FontWeight.NORMAL ||
+          fontWeight === FontWeight.ONE_HUNDRED ||
+          fontWeight === FontWeight.TWO_HUNDRED ||
+          fontWeight === FontWeight.THREE_HUNDRED ||
+          fontWeight === FontWeight.FOUR_HUNDRED ||
+          fontWeight === FontWeight.FIVE_HUNDRED ||
+          fontWeight === FontWeight.SIX_HUNDRED
+        ) {
+          level = 'AA';
+        } else {
+          // BOLD
+          level = 'AAA';
+        }
+      } else if (size > 24) {
         level = 'AAA';
       }
-    }
-    if (size >= 18.66 && size < 24) {
+    } else if (ratio >= 3 && ratio < 4.5) {
       if (
-        ratio >= 3 &&
+        size >= 18.66 &&
+        size < 24 &&
         (fontWeight === FontWeight.BOLD ||
           fontWeight === FontWeight.BOLDER ||
           fontWeight === FontWeight.SEVEN_HUNDRED ||
@@ -88,29 +106,11 @@ export class ColorMatrixService {
           fontWeight === FontWeight.NINE_HUNDRED)
       ) {
         level = 'AA';
-      } else if (
-        ratio >= 4.5 &&
-        ratio < 7 &&
-        (fontWeight === FontWeight.LIGHTER ||
-          fontWeight === FontWeight.NORMAL ||
-          fontWeight === FontWeight.ONE_HUNDRED ||
-          fontWeight === FontWeight.TWO_HUNDRED ||
-          fontWeight === FontWeight.THREE_HUNDRED ||
-          fontWeight === FontWeight.FOUR_HUNDRED ||
-          fontWeight === FontWeight.FIVE_HUNDRED ||
-          fontWeight === FontWeight.SIX_HUNDRED)
-      ) {
+      } else if (size >= 24) {
         level = 'AA';
-      } else if (ratio > 7) {
-        level = 'AAA';
       }
-    }
-    if (size >= 24) {
-      if (ratio >= 3 && ratio < 4.5) {
-        level = 'AA';
-      } else if (ratio > 4.5) {
-        level = 'AAA';
-      }
+    } else {
+      level = 'X';
     }
     return level;
   }
