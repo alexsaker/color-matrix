@@ -10,7 +10,7 @@
           <mat-icon class="icon-import">add</mat-icon>
           <span>New color palette</span>
         </button>
-      <a *ngFor="let cs of (colorPalettes$ | async)" mat-list-item (click)="displayColorPalette(cs.id)">{{cs.label}}</a>
+      <a *ngFor="let cs of (colorPalettes$ | async)" mat-list-item (click)="displayColorPalette(cs.id)">{{cs.title}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

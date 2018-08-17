@@ -1,5 +1,5 @@
 export interface ColorPalette {
   id: string;
-  label: string;
+  title: string;
   data: string[];
 }

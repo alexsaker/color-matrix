@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class ColorPaletteConfirmDeleteModalComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ColorPaletteConfirmDeleteModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { label: string }
+    @Inject(MAT_DIALOG_DATA) public data: { title: string }
   ) {}
 
   ngOnInit() {}

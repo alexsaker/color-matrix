@@ -58,7 +58,7 @@ export class NavigationComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!!result) {
-        this.store.dispatch(new SaveColorPalette(result.label, result.data));
+        this.store.dispatch(new SaveColorPalette(result.title, result.data));
       }
     });
   }

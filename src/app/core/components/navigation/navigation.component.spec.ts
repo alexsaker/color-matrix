@@ -25,34 +25,32 @@ describe('NavigationComponent', () => {
   let store: Store;
   let dialogRef: MatDialogRef<NavigationComponent>;
   let dialog: MatDialog;
-  beforeEach(
-    fakeAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          MatDialogModule,
-          MatToolbarModule,
-          MatSidenavModule,
-          MatButtonModule,
-          BrowserAnimationsModule,
-          NgxsModule.forRoot([ColorPaletteState])
-        ],
-        providers: [
-          {
-            provide: MatDialogRef,
-            useValue: jasmine.createSpyObj('MatDialogRef', ['afterClosed'])
-          }
-        ],
-        declarations: [NavigationComponent],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA]
-      }).compileComponents();
-      fixture = TestBed.createComponent(NavigationComponent);
-      component = fixture.componentInstance;
-      store = TestBed.get(Store);
-      dialog = TestBed.get(MatDialog);
-      dialogRef = TestBed.get(MatDialogRef);
-      fixture.detectChanges();
-    })
-  );
+  beforeEach(fakeAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        MatDialogModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        NgxsModule.forRoot([ColorPaletteState])
+      ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: jasmine.createSpyObj('MatDialogRef', ['afterClosed'])
+        }
+      ],
+      declarations: [NavigationComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
+    fixture = TestBed.createComponent(NavigationComponent);
+    component = fixture.componentInstance;
+    store = TestBed.get(Store);
+    dialog = TestBed.get(MatDialog);
+    dialogRef = TestBed.get(MatDialogRef);
+    fixture.detectChanges();
+  }));
 
   it('should compile', () => {
     expect(component).toBeTruthy();
@@ -101,7 +99,7 @@ describe('NavigationComponent', () => {
   });
 
   it('should dispatch SaveColorPalette when color palette modal closed an result not undefined', () => {
-    const modalResult = { label: 'test', data: ['#777'] };
+    const modalResult = { title: 'test', data: ['#777'] };
     spyOn(dialog, 'open').and.returnValue({
       afterClosed: () => of(modalResult)
     });
@@ -112,7 +110,7 @@ describe('NavigationComponent', () => {
       height: '500px'
     });
     expect(store.dispatch).toHaveBeenCalledWith(
-      new SaveColorPalette(modalResult.label, modalResult.data)
+      new SaveColorPalette(modalResult.title, modalResult.data)
     );
   });
 });

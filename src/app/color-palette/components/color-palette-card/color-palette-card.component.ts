@@ -24,7 +24,7 @@ export class ColorPaletteCardComponent implements OnInit {
       {
         width: '550px',
         data: {
-          label: this.colorPalette.label
+          title: this.colorPalette.title
         }
       }
     );

@@ -137,7 +137,7 @@ export class ColorPaletteState implements NgxsOnInit {
   ) {
     const state = ctx.getState();
     const { colorPalette, error } = this.colorPaletteService.saveColorPalette(
-      action.label,
+      action.title,
       action.data
     );
     if (error) {

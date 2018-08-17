@@ -25,7 +25,7 @@ describe('ColorPaletteConfirmDeleteModalComponent', () => {
         {
           provide: MAT_DIALOG_DATA,
           useValue: {
-            label: 'test'
+            title: 'test'
           }
         },
         {

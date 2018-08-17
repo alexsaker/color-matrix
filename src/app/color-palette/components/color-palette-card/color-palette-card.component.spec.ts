@@ -64,7 +64,7 @@ describe('ColorPaletteCardComponent', () => {
     });
     component.colorPalette = {
       id: '49805fbc-11da-40ec-be35-c10774f22739',
-      label: 'test',
+      title: 'test',
       data: ['#555']
     };
     component.deleteColorPalette(component.colorPalette.id);
@@ -73,7 +73,7 @@ describe('ColorPaletteCardComponent', () => {
       {
         width: '550px',
         data: {
-          label: 'test'
+          title: 'test'
         }
       }
     );
@@ -87,7 +87,7 @@ describe('ColorPaletteCardComponent', () => {
     spyOn(store, 'dispatch');
     component.colorPalette = {
       id: '49805fbc-11da-40ec-be35-c10774f22739',
-      label: 'test',
+      title: 'test',
       data: ['#555']
     };
     component.deleteColorPalette(component.colorPalette.id);
@@ -103,7 +103,7 @@ describe('ColorPaletteCardComponent', () => {
     spyOn(store, 'dispatch');
     component.colorPalette = {
       id: '49805fbc-11da-40ec-be35-c10774f22739',
-      label: 'test',
+      title: 'test',
       data: ['#555']
     };
     component.deleteColorPalette(component.colorPalette.id);

@@ -37,7 +37,7 @@ export class ColorPaletteService {
   public getDefaultColorPaletteAndSetLocalStorage(): ColorPalette {
     const cp: ColorPalette = {
       id: uuidv4(),
-      label: 'Amadeus Default',
+      title: 'Amadeus Default',
       data: this.DEFAULT_COLOR_SPAN
     };
     localStorage.setItem('colorPalettes', JSON.stringify([cp]));
@@ -45,13 +45,13 @@ export class ColorPaletteService {
   }
 
   public saveColorPalette(
-    label: string,
+    title: string,
     data: string[]
   ): { colorPalette: ColorPalette; error?: Error } {
     try {
       const cp: ColorPalette = {
         id: uuidv4(),
-        label: label,
+        title: title,
         data: data
       };
       const colorPalettesAsString: string = localStorage.getItem(
