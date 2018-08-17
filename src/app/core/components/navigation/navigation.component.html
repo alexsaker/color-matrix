@@ -1,12 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async) && (isSidenavOpened$ | async)">
-    <mat-toolbar color="primary">
+    <mat-toolbar color="accent">
       <a (click)="goHome()">{{sidenavTitle}}</a>
 
     </mat-toolbar>
     <mat-nav-list>
-        <button mat-list-item mat-raised-button color="accent" class="button-import" (click)="openColorPaletteImportModal()">
+        <button mat-list-item mat-raised-button color="primary" class="button-import" (click)="openColorPaletteImportModal()">
           <mat-icon class="icon-import">add</mat-icon>
           <span>New color palette</span>
         </button>
@@ -14,7 +14,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="accent">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">
           CM

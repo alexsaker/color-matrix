@@ -16,14 +16,13 @@
     .custom-search {
       margin: 25px;
     }
-    &.mat-primary {
+    &.mat-toolbar-single-row {
       position: sticky;
       top: 0;
     }
   }
 
   .mat-sidenav-content {
-    display: -ms-grid !important;
     display: grid !important;
   }
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {

@@ -33,7 +33,10 @@ export class ColorPaletteImportModalComponent implements OnInit {
         Validators.minLength(this.LABEL_MIN_LENGTH),
         Validators.maxLength(this.LABEL_MAX_LENGTH)
       ]),
-      data: new FormControl(null, [Validators.required, colorPaletteValidator])
+      data: new FormControl(JSON.stringify(['#123456', '#234567', '#345678']), [
+        Validators.required,
+        colorPaletteValidator
+      ])
     });
   }
 
