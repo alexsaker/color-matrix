@@ -6,10 +6,10 @@
 
     </mat-toolbar>
     <mat-nav-list>
-        <button mat-list-item mat-raised-button color="primary" class="button-import" (click)="openColorPaletteImportModal()">
-          <mat-icon class="icon-import">add</mat-icon>
-          <span>New color palette</span>
-        </button>
+      <button mat-list-item mat-raised-button color="primary" class="button-import" (click)="openColorPaletteImportModal()">
+        <mat-icon class="icon-import">add</mat-icon>
+        <span>New color palette</span>
+      </button>
       <a *ngFor="let cs of (colorPalettes$ | async)" mat-list-item (click)="displayColorPalette(cs.id)">{{cs.title}}</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -28,7 +28,7 @@
         </button>
         Colors for all
       </span>
-      <cm-matrix-custom-search  *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search" ></cm-matrix-custom-search>
+      <cm-matrix-custom-search *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search"></cm-matrix-custom-search>
     </mat-toolbar>
     <!-- Add Content Here -->
     <ng-content></ng-content>

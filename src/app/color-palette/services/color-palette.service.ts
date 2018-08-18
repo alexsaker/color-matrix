@@ -34,52 +34,13 @@ export class ColorPaletteService {
     '#00701B'
   ];
   constructor() {}
-  public getDefaultColorPaletteAndSetLocalStorage(): ColorPalette {
+
+  public getDefaultColorPalette(): ColorPalette {
     const cp: ColorPalette = {
       id: uuidv4(),
       title: 'Amadeus Default',
       data: this.DEFAULT_COLOR_SPAN
     };
-    localStorage.setItem('colorPalettes', JSON.stringify([cp]));
     return cp;
-  }
-
-  public saveColorPalette(
-    title: string,
-    data: string[]
-  ): { colorPalette: ColorPalette; error?: Error } {
-    try {
-      const cp: ColorPalette = {
-        id: uuidv4(),
-        title: title,
-        data: data
-      };
-      const colorPalettesAsString: string = localStorage.getItem(
-        'colorPalettes'
-      );
-      const colorPalettes: ColorPalette[] = JSON.parse(colorPalettesAsString);
-      colorPalettes.push(cp);
-      localStorage.setItem('colorPalettes', JSON.stringify(colorPalettes));
-      return { colorPalette: cp };
-    } catch (error) {
-      return { colorPalette: null, error: error };
-    }
-  }
-
-  public deleteColorPalette(id: string): { status: string; error?: Error } {
-    try {
-      const colorPalettesAsString: string = localStorage.getItem(
-        'colorPalettes'
-      );
-      const colorPalettes: ColorPalette[] = JSON.parse(colorPalettesAsString);
-      const updatedolorPalettes = colorPalettes.filter(cp => cp.id !== id);
-      localStorage.setItem(
-        'colorPalettes',
-        JSON.stringify(updatedolorPalettes)
-      );
-      return { status: 'OK' };
-    } catch (error) {
-      return { status: 'FAILED', error: error };
-    }
   }
 }

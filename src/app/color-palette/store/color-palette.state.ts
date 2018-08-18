@@ -5,7 +5,7 @@ import {
 } from './../../shared/store/app.actions';
 import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store';
 import { range } from 'lodash';
-
+import * as uuidv4 from 'uuid/v4';
 import { FontWeight } from '../enums/font-weight.enum';
 import { ColorPaletteMatrix } from '../models/color-palette-matrix.model';
 import { ColorPalette } from '../models/color-palette.model';
@@ -104,28 +104,22 @@ export class ColorPaletteState implements NgxsOnInit {
       const colorPalettesFromLocalStorage = JSON.parse(
         localStorage.getItem('colorPalettes')
       );
-      const colorPalettes: ColorPalette[] =
+      if (
         !!colorPalettesFromLocalStorage &&
-        colorPalettesFromLocalStorage.length > 0
-          ? colorPalettesFromLocalStorage
-          : [
-              this.colorPaletteService.getDefaultColorPaletteAndSetLocalStorage()
-            ];
-      const { ids, entities } = colorPalettes.reduce(
-        (acc, current) => {
-          acc.ids.push(current.id);
-          acc.entities[current.id] = current;
-          return acc;
-        },
-        { ids: [], entities: {} }
-      );
+        !!colorPalettesFromLocalStorage.ids &&
+        colorPalettesFromLocalStorage.ids.length
+      ) {
+        return;
+      }
+      const colorPalette: ColorPalette = this.colorPaletteService.getDefaultColorPalette();
+      const colorPaletteDefaultEntity = {};
+      colorPaletteDefaultEntity[colorPalette.id] = colorPalette;
       ctx.setState({
         ...state,
-        ids: ids,
-        entities: entities
+        ids: [colorPalette.id],
+        entities: colorPaletteDefaultEntity
       });
     } catch (error) {
-      localStorage.removeItem('colorPalettes');
       ctx.dispatch(new SetErrors([error]));
     }
   }
@@ -136,15 +130,14 @@ export class ColorPaletteState implements NgxsOnInit {
     action: SaveColorPalette
   ) {
     const state = ctx.getState();
-    const { colorPalette, error } = this.colorPaletteService.saveColorPalette(
-      action.title,
-      action.data
-    );
-    if (error) {
-      this.store.dispatch(new ShowErrorSnackBar(error.message));
-      ctx.patchState({ error: error });
-    } else if (!!colorPalette) {
+    try {
+      const colorPalette: ColorPalette = {
+        id: uuidv4(),
+        title: action.title,
+        data: action.data
+      };
       const colorPaletteEntity = {};
+
       colorPaletteEntity[colorPalette.id] = colorPalette;
       ctx.patchState({
         ids: [...state.ids, colorPalette.id],
@@ -153,6 +146,9 @@ export class ColorPaletteState implements NgxsOnInit {
       this.store.dispatch(
         new ShowSuccessSnackBar('Color Palette has been created successfully.')
       );
+    } catch (error) {
+      this.store.dispatch(new ShowErrorSnackBar(error.message));
+      ctx.patchState({ error: error });
     }
   }
 
@@ -162,11 +158,7 @@ export class ColorPaletteState implements NgxsOnInit {
     action: DeleteColorPalette
   ) {
     const state = ctx.getState();
-    const { error } = this.colorPaletteService.deleteColorPalette(action.id);
-    if (error) {
-      this.store.dispatch(new ShowErrorSnackBar(error.message));
-      ctx.patchState({ error: error });
-    } else {
+    try {
       const stateIds = state.ids.filter(cpId => cpId !== action.id);
       const stateEntities = state.entities;
       delete stateEntities[action.id];
@@ -177,6 +169,9 @@ export class ColorPaletteState implements NgxsOnInit {
       this.store.dispatch(
         new ShowSuccessSnackBar('Color Palette has been deleted successfully.')
       );
+    } catch (error) {
+      this.store.dispatch(new ShowErrorSnackBar(error.message));
+      ctx.patchState({ error: error });
     }
   }
 

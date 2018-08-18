@@ -1,17 +1,17 @@
 import { Action, State, StateContext } from '@ngxs/store';
-import { Notification } from '../models/notification.model';
 import {
   CloseSidenav,
   DisplayMatrixToolbarForm,
   HideMatrixToolbarForm,
   ToggleSidenav,
   ShowSuccessSnackBar,
-  ShowErrorSnackBar
+  ShowErrorSnackBar,
+  OpenSidenav
 } from './app.actions';
 import { MatSnackBar } from '@angular/material';
 
 export interface AppStateModel {
-  version: string;
+  version: number;
   isSidenavOpened: boolean;
   isMatrixToolbarFormVisible: boolean;
 }
@@ -19,8 +19,8 @@ export interface AppStateModel {
 @State<AppStateModel>({
   name: 'app',
   defaults: {
-    version: '1.0',
-    isSidenavOpened: localStorage.getItem('sidenavOpened') === 'true' || false,
+    version: 1,
+    isSidenavOpened: getSidenavStateFromLocalStorage() || false,
     isMatrixToolbarFormVisible: true
   }
 })
@@ -39,6 +39,12 @@ export class AppState {
   closeSidenav(ctx: StateContext<AppStateModel>) {
     ctx.patchState({
       isSidenavOpened: false
+    });
+  }
+  @Action(OpenSidenav)
+  openSidenav(ctx: StateContext<AppStateModel>) {
+    ctx.patchState({
+      isSidenavOpened: true
     });
   }
   @Action(DisplayMatrixToolbarForm)
@@ -71,4 +77,17 @@ export class AppState {
       duration: AppState.SNACKBAR_BAR
     });
   }
+}
+
+function getSidenavStateFromLocalStorage(): boolean | null {
+  const appState = localStorage.getItem('app');
+  if (!!appState) {
+    try {
+      const parsedAppState = JSON.parse(appState);
+      return parsedAppState.isSidenavOpened || null;
+    } catch (error) {
+      localStorage.removeItem('app');
+    }
+  }
+  return null;
 }

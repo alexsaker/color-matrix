@@ -29,6 +29,7 @@
     "@angular/router": "^6.0.3",
     "@ngxs/devtools-plugin": "^3.1.4",
     "@ngxs/logger-plugin": "^3.1.4",
+    "@ngxs/storage-plugin": "^3.2.0",
     "@ngxs/store": "^3.1.4",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
