@@ -2,9 +2,13 @@ import { ColorPalette } from '../../models/color-palette.model';
 import { MatDialog } from '@angular/material';
 import { Store } from '@ngxs/store';
 import { Component, OnInit, Input } from '@angular/core';
-import { DeleteColorPalette } from '../../store/color-palette.actions';
+import {
+  DeleteColorPalette,
+  SaveColorPalette
+} from '../../store/color-palette.actions';
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
 import { Navigate } from '../../../shared/store/router.state';
+import { ColorPaletteSaveModalComponent } from '../../../core/components/color-palette-save-modal/color-palette-save-modal.component';
 
 @Component({
   selector: 'cm-color-palette-card',
@@ -32,6 +36,21 @@ export class ColorPaletteCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (!!result) {
         this.store.dispatch(new DeleteColorPalette(id));
+      }
+    });
+  }
+  public editColorPalette(id: string): void {
+    const dialogRef = this.dialog.open(ColorPaletteSaveModalComponent, {
+      width: '500px',
+      height: '500px',
+      data: {
+        action: 'Edit',
+        colorPalette: this.colorPalette
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!!result) {
+        this.store.dispatch(new SaveColorPalette(result));
       }
     });
   }

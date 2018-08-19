@@ -15,7 +15,7 @@ import { Observable, of } from 'rxjs';
 import { SaveColorPalette } from '../../../color-palette/store/color-palette.actions';
 import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
 import { Navigate } from '../../../shared/store/router.state';
-import { ColorPaletteImportModalComponent } from '../color-palette-import-modal/color-palette-import-modal.component';
+import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/color-palette-save-modal.component';
 import { CloseSidenav, ToggleSidenav } from '../../../shared/store/app.actions';
 import { NavigationComponent } from './navigation.component';
 
@@ -89,12 +89,13 @@ describe('NavigationComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(new Navigate('/color-palette'));
   });
 
-  it('should open colorPalette importation modal when openColorPaletteImportModal method called', () => {
+  it('should open colorPalette importation modal when openColorPaletteSaveModal method called', () => {
     spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of() });
-    component.openColorPaletteImportModal();
-    expect(dialog.open).toHaveBeenCalledWith(ColorPaletteImportModalComponent, {
+    component.openColorPaletteSaveModal();
+    expect(dialog.open).toHaveBeenCalledWith(ColorPaletteSaveModalComponent, {
       width: '500px',
-      height: '500px'
+      height: '500px',
+      data: { action: 'Create' }
     });
   });
 
@@ -104,13 +105,14 @@ describe('NavigationComponent', () => {
       afterClosed: () => of(modalResult)
     });
     spyOn(store, 'dispatch');
-    component.openColorPaletteImportModal();
-    expect(dialog.open).toHaveBeenCalledWith(ColorPaletteImportModalComponent, {
+    component.openColorPaletteSaveModal();
+    expect(dialog.open).toHaveBeenCalledWith(ColorPaletteSaveModalComponent, {
       width: '500px',
-      height: '500px'
+      height: '500px',
+      data: { action: 'Create' }
     });
     expect(store.dispatch).toHaveBeenCalledWith(
-      new SaveColorPalette(modalResult.title, modalResult.data)
+      new SaveColorPalette(modalResult)
     );
   });
 });

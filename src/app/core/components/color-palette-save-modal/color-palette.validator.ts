@@ -20,7 +20,7 @@ export function colorPaletteValidator(control: FormControl) {
     } else {
       let validDataInArray = true;
       colorPalette.forEach(el => {
-        if (!el.match(/^\#\d{3}$/) && !el.match(/^\#\d{6}$/)) {
+        if (!el.match(/^\#[A-F0-9]{3}$/i) && !el.match(/^\#[A-F0-9]{6}$/i)) {
           validDataInArray = false;
         }
       });

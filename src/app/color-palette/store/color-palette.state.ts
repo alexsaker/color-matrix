@@ -131,11 +131,10 @@ export class ColorPaletteState implements NgxsOnInit {
   ) {
     const state = ctx.getState();
     try {
-      const colorPalette: ColorPalette = {
-        id: uuidv4(),
-        title: action.title,
-        data: action.data
-      };
+      const colorPalette: ColorPalette = action.colorPalette;
+      if (!colorPalette.id) {
+        colorPalette.id = uuidv4();
+      }
       const colorPaletteEntity = {};
 
       colorPaletteEntity[colorPalette.id] = colorPalette;

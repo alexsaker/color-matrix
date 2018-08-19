@@ -7,7 +7,7 @@ export class LoadColorPalettes {
 
 export class SaveColorPalette {
   static readonly type = '[ColorPalette] SaveColorPalette';
-  constructor(public title: string, public data: string[]) {}
+  constructor(public colorPalette: ColorPalette) {}
 }
 export class DeleteColorPalette {
   static readonly type = '[ColorPalette] DeleteColorPalette';

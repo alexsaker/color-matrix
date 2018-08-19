@@ -10,7 +10,7 @@ import { SaveColorPalette } from '../../../color-palette/store/color-palette.act
 import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
 import { CloseSidenav, ToggleSidenav } from '../../../shared/store/app.actions';
 import { Navigate } from '../../../shared/store/router.state';
-import { ColorPaletteImportModalComponent } from '../color-palette-import-modal/color-palette-import-modal.component';
+import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/color-palette-save-modal.component';
 
 @Component({
   selector: 'cm-navigation',
@@ -51,14 +51,17 @@ export class NavigationComponent implements OnInit {
     this.store.dispatch(new Navigate('/color-palette'));
   }
 
-  public openColorPaletteImportModal() {
-    const dialogRef = this.dialog.open(ColorPaletteImportModalComponent, {
+  public openColorPaletteSaveModal() {
+    const dialogRef = this.dialog.open(ColorPaletteSaveModalComponent, {
       width: '500px',
-      height: '500px'
+      height: '500px',
+      data: {
+        action: 'Create'
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (!!result) {
-        this.store.dispatch(new SaveColorPalette(result.title, result.data));
+        this.store.dispatch(new SaveColorPalette(result));
       }
     });
   }

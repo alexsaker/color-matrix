@@ -10,6 +10,10 @@
           <mat-icon>delete</mat-icon>
           <span>Delete palette</span>
         </button>
+        <button mat-menu-item (click)="editColorPalette(colorPalette?.id)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit palette</span>
+        </button>
       </mat-menu>
     </div>
   </mat-card-header>
