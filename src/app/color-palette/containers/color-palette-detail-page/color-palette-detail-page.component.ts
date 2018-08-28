@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { ColorPaletteState } from '../../store/color-palette.state';
 import { Observable } from 'rxjs';
@@ -9,7 +9,8 @@ import { SetSelectedColorPalette } from '../../store/color-palette.actions';
 @Component({
   selector: 'cm-color-palette-detail-page',
   templateUrl: './color-palette-detail-page.component.html',
-  styleUrls: ['./color-palette-detail-page.component.scss']
+  styleUrls: ['./color-palette-detail-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColorPaletteDetailPageComponent implements OnInit {
   @Select(ColorPaletteState.selectedColorPalette)

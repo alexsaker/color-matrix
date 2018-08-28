@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ColorMatrixCell } from '../models/color-matrix.model';
-import { ColorPalette } from '../models/color-palette.model';
-import { colorConvertor } from '../shared/utils';
+import { inputToRGB } from '@ctrl/tinycolor';
+
 import { FontWeight } from '../enums/font-weight.enum';
+import { ColorMatrixCell } from '../models/color-matrix.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,12 +16,8 @@ export class ColorMatrixService {
     size: number,
     fontWeight: FontWeight
   ): ColorMatrixCell {
-    const LtextColor = this.convertToArray(
-      colorConvertor.toRgb(backgroundColor, false)
-    );
-    const LbackgroundColor = this.convertToArray(
-      colorConvertor.toRgb(foregroundColor, false)
-    );
+    const LtextColor = this.toRgb(backgroundColor);
+    const LbackgroundColor = this.toRgb(foregroundColor);
     const style = {
       'font-size': size + 'px',
       'font-weight': fontWeight,
@@ -55,20 +52,18 @@ export class ColorMatrixService {
     );
   }
 
-  public convertToArray(color): number[] {
-    color = color.slice(1, -1);
-    return color.split(', ').map(Number);
-  }
-  public calculateRatio(contrast): number {
+  public calculateRatio(contrast: number): number {
     let ratio = 1 / contrast;
     if (ratio < 1) {
       ratio = 1 / ratio;
     }
     return Number(ratio.toFixed(2));
   }
+
   public setRatioTitle(ratio: number): string {
     return ratio + ':1';
   }
+
   public getWCAGLevel(size: number, ratio: number, fontWeight: FontWeight) {
     let level = 'X';
     if (ratio >= 7) {
@@ -111,5 +106,9 @@ export class ColorMatrixService {
       }
     }
     return level;
+  }
+  private toRgb(color) {
+    const rgb = inputToRGB(color);
+    return [rgb.r, rgb.g, rgb.b];
   }
 }
