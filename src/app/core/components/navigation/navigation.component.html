@@ -10,7 +10,9 @@
         <mat-icon class="icon-save">add</mat-icon>
         <span>Create color palette</span>
       </button>
-      <a *ngFor="let cs of (colorPalettes$ | async)" mat-list-item (click)="displayColorPalette(cs.id)">{{cs.title}}</a>
+      <ng-container *ngFor="let cp of (colorPalettes$ | async)">
+        <cm-navigation-item [colorPalette]="cp"></cm-navigation-item>
+      </ng-container>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

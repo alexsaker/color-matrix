@@ -43,10 +43,6 @@ export class NavigationComponent implements OnInit {
     this.store.dispatch(new ToggleSidenav());
   }
 
-  public displayColorPalette(id: string) {
-    this.store.dispatch(new Navigate('/color-palette/' + id));
-    this.store.dispatch(new CloseSidenav());
-  }
   public goHome() {
     this.store.dispatch(new Navigate('/color-palette'));
   }

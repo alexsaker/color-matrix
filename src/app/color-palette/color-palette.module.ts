@@ -10,14 +10,13 @@ import {
 } from '@angular/material';
 import { NgxsModule } from '@ngxs/store';
 
+import { ColorPaletteRoutingModule } from './color-palette-routing.module';
 import { ColorPaletteCardComponent } from './components/color-palette-card/color-palette-card.component';
-import { ColorPaletteConfirmDeleteModalComponent } from './components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
 import { ColorPaletteListComponent } from './components/color-palette-list/color-palette-list.component';
 import { MatrixCellComponent } from './components/matrix-cell/matrix-cell.component';
 import { MatrixTableComponent } from './components/matrix-table/matrix-table.component';
 import { ColorPaletteDetailPageComponent } from './containers/color-palette-detail-page/color-palette-detail-page.component';
 import { ColorPalettePageComponent } from './containers/color-palette-page/color-palette-page.component';
-import { ColorPaletteRoutingModule } from './color-palette-routing.module';
 import { ColorMatrixService } from './services/color-matrix.service';
 import { ColorPaletteService } from './services/color-palette.service';
 import { ColorPaletteState } from './store/color-palette.state';
@@ -41,14 +40,13 @@ const DECLARATIONS = [
   MatrixTableComponent,
   MatrixCellComponent,
   ColorPaletteListComponent,
-  ColorPaletteCardComponent,
-  ColorPaletteConfirmDeleteModalComponent
+  ColorPaletteCardComponent
 ];
 
 @NgModule({
   imports: MODULES,
   declarations: DECLARATIONS,
   providers: [ColorPaletteService, ColorMatrixService],
-  entryComponents: [ColorPaletteConfirmDeleteModalComponent]
+  entryComponents: []
 })
 export class ColorPaletteModule {}

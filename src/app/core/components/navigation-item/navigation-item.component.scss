@@ -1,0 +1,22 @@
+:host {
+  .nav-link {
+    .mat-list-item-content {
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .color-palette-title {
+      flex: 1;
+    }
+    .action-icons {
+      display: none;
+      padding-left: 5px;
+      &.show-actions {
+        display: inline-flex;
+      }
+    }
+  }
+  .is-over {
+    transform: scale(1.1);
+  }
+}

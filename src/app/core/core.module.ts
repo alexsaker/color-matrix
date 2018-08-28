@@ -20,6 +20,8 @@ import { MatrixCustomSearchComponent } from './components/matrix-custom-search/m
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ColorPaletteSaveModalComponent } from './components/color-palette-save-modal/color-palette-save-modal.component';
+import { NavigationItemComponent } from './components/navigation-item/navigation-item.component';
+import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette/components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
 
 const MODULES = [
   BrowserAnimationsModule,
@@ -41,13 +43,18 @@ const DECLARATIONS = [
   NavigationComponent,
   PageNotFoundComponent,
   MatrixCustomSearchComponent,
-  ColorPaletteSaveModalComponent
+  ColorPaletteSaveModalComponent,
+  NavigationItemComponent,
+  ColorPaletteConfirmDeleteModalComponent
 ];
 
 @NgModule({
   imports: MODULES,
   declarations: DECLARATIONS,
   exports: [...MODULES, ...DECLARATIONS],
-  entryComponents: [ColorPaletteSaveModalComponent]
+  entryComponents: [
+    ColorPaletteSaveModalComponent,
+    ColorPaletteConfirmDeleteModalComponent
+  ]
 })
 export class CoreModule {}

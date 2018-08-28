@@ -1,7 +1,5 @@
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { MatSidenavModule } from '@angular/material/sidenav';
-
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import {
   MatButtonModule,
   MatDialog,
@@ -9,15 +7,18 @@ import {
   MatDialogRef,
   MatToolbarModule
 } from '@angular/material';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule, Store } from '@ngxs/store';
 import { Observable, of } from 'rxjs';
+
 import { SaveColorPalette } from '../../../color-palette/store/color-palette.actions';
 import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
+import { ToggleSidenav } from '../../../shared/store/app.actions';
 import { Navigate } from '../../../shared/store/router.state';
 import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/color-palette-save-modal.component';
-import { CloseSidenav, ToggleSidenav } from '../../../shared/store/app.actions';
 import { NavigationComponent } from './navigation.component';
+import { tick } from '@angular/core/src/render3';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -25,7 +26,7 @@ describe('NavigationComponent', () => {
   let store: Store;
   let dialogRef: MatDialogRef<NavigationComponent>;
   let dialog: MatDialog;
-  beforeEach(fakeAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MatDialogModule,
@@ -50,7 +51,7 @@ describe('NavigationComponent', () => {
     dialog = TestBed.get(MatDialog);
     dialogRef = TestBed.get(MatDialogRef);
     fixture.detectChanges();
-  }));
+  });
 
   it('should compile', () => {
     expect(component).toBeTruthy();
@@ -65,22 +66,6 @@ describe('NavigationComponent', () => {
     spyOn(store, 'dispatch');
     component.toggleSidenav();
     expect(store.dispatch).toHaveBeenCalledWith(new ToggleSidenav());
-  });
-
-  it('should dispatch Navigate action when displayMatrix method called', () => {
-    spyOn(store, 'dispatch');
-    const id = '49805fbc-11da-40ec-be35-c10774f22739';
-    component.displayColorPalette(id);
-    expect(store.dispatch).toHaveBeenCalledWith(
-      new Navigate('/color-palette/' + id)
-    );
-  });
-
-  it('should dispatch CloseSidenav action when displayMatrix method called', () => {
-    spyOn(store, 'dispatch');
-    const id = '49805fbc-11da-40ec-be35-c10774f22739';
-    component.displayColorPalette(id);
-    expect(store.dispatch).toHaveBeenCalledWith(new CloseSidenav());
   });
 
   it('should dispatch Navigate action to Home when goHome method called', () => {
