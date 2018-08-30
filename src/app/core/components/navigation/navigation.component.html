@@ -1,14 +1,14 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async) && (isSidenavOpened$ | async)">
-    <mat-toolbar color="accent">
-      <a (click)="goHome()">{{sidenavTitle}}</a>
-
+    <mat-toolbar class="toolbar-left" (click)="goHome()" color="accent">
+      <mat-icon>view_module</mat-icon>
+      <div class="title">Color Palettes</div>
     </mat-toolbar>
     <mat-nav-list>
-      <button mat-list-item mat-raised-button color="primary" class="button-save" (click)="openColorPaletteSaveModal()">
-        <mat-icon class="icon-save">add</mat-icon>
-        <span>Create color palette</span>
+      <button mat-list-item mat-raised-button color="primary" class="button-create" (click)="openColorPaletteSaveModal()">
+        <mat-icon class="icon-create">add</mat-icon>
+        <span>Create</span>
       </button>
       <ng-container *ngFor="let cp of (colorPalettes$ | async)">
         <cm-navigation-item [colorPalette]="cp"></cm-navigation-item>
@@ -16,20 +16,22 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="accent">
+    <mat-toolbar class="toolbar-right" color="accent">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">
-          CM
+        <mat-icon aria-label="Toggle sidenav toolbar">
+          menu
         </mat-icon>
       </button>
-      <span>
+      <div class="toolbar-right-navigation">
         <button type="button" aria-label="Toggle sidenav toolbar" mat-icon-button (click)="toggleSidenav()" *ngIf="!(isHandset$ | async)">
           <mat-icon aria-label="Toggle sidenav toolbar">
             menu
           </mat-icon>
         </button>
-        Colors for all
-      </span>
+        <span class="title">
+          Colors for all
+        </span>
+      </div>
       <cm-matrix-custom-search *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search"></cm-matrix-custom-search>
     </mat-toolbar>
     <!-- Add Content Here -->

@@ -33,7 +33,6 @@ export class NavigationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.sidenavTitle = 'CM';
     this.isHandset$ = this.breakpointObserver
       .observe(Breakpoints.Handset)
       .pipe(map(result => result.matches));

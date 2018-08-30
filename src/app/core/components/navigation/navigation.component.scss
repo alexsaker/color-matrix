@@ -1,9 +1,17 @@
 :host {
-  .button-save {
+  ::ng-deep .mat-list-item {
+    font-size: 14px !important;
+  }
+  .button-create {
     width: 100%;
-    .icon-save {
+    text-align: left;
+    padding-left: 10px;
+    .icon-create {
       padding-right: 5px;
     }
+  }
+  .mat-nav-list {
+    padding-top: 0px;
   }
   .sidenav-container {
     height: 100%;
@@ -13,6 +21,23 @@
   }
   .mat-toolbar {
     z-index: 9999;
+    .toolbar-right-navigation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .title {
+        cursor: pointer;
+      }
+    }
+    &.toolbar-left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      .title {
+        margin-left: 3px;
+      }
+    }
     .custom-search {
       margin: 25px;
     }
