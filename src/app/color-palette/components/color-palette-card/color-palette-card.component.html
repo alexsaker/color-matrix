@@ -6,14 +6,19 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="deleteColorPalette(colorPalette?.id)">
-          <mat-icon>delete</mat-icon>
-          <span>Delete palette</span>
-        </button>
         <button mat-menu-item (click)="editColorPalette(colorPalette?.id)">
           <mat-icon>edit</mat-icon>
           <span>Edit palette</span>
         </button>
+        <button mat-menu-item (click)="duplicateColorPalette(colorPalette?.id)">
+          <mat-icon>file_copy</mat-icon>
+          <span>Duplicate palette</span>
+        </button>
+        <button mat-menu-item (click)="deleteColorPalette(colorPalette?.id)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete palette</span>
+        </button>
+
       </mat-menu>
     </div>
   </mat-card-header>

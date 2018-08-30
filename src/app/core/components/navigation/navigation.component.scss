@@ -25,15 +25,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      .title {
-        cursor: pointer;
-      }
+      cursor: pointer;
     }
     &.toolbar-left {
       display: flex;
       align-items: center;
-      justify-content: center;
       cursor: pointer;
+      justify-content: left;
+      padding-left: 10px;
       .title {
         margin-left: 3px;
       }

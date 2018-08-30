@@ -58,7 +58,6 @@ describe('NavigationComponent', () => {
   });
 
   it('should initialize', () => {
-    expect(component.sidenavTitle).toEqual('CM');
     expect(component.isHandset$ instanceof Observable).toBeTruthy();
   });
 
