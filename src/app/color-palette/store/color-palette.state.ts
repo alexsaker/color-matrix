@@ -130,9 +130,11 @@ export class ColorPaletteState implements NgxsOnInit {
     action: SaveColorPalette
   ) {
     const state = ctx.getState();
+    let actionType = 'UPDATE';
     try {
       const colorPalette: ColorPalette = action.colorPalette;
       if (!colorPalette.id) {
+        actionType = 'CREATION';
         colorPalette.id = uuidv4();
       }
       const colorPaletteEntity = {};
@@ -142,9 +144,11 @@ export class ColorPaletteState implements NgxsOnInit {
         ids: [...state.ids, colorPalette.id],
         entities: { ...state.entities, ...colorPaletteEntity }
       });
-      this.store.dispatch(
-        new ShowSuccessSnackBar('Color Palette has been created successfully.')
-      );
+      const snackBarMessage =
+        actionType === 'CREATION'
+          ? 'Color Palette has been created successfully'
+          : 'Color Palette has been saved successfully';
+      this.store.dispatch(new ShowSuccessSnackBar(snackBarMessage));
     } catch (error) {
       this.store.dispatch(new ShowErrorSnackBar(error.message));
       ctx.patchState({ error: error });
