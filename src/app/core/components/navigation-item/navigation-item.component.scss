@@ -7,6 +7,9 @@
     }
     .color-palette-title {
       flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .action-icons {
       display: none;
@@ -17,6 +20,6 @@
     }
   }
   .is-over {
-    transform: scale(1.1);
+    // transform: scale(1.1);
   }
 }
