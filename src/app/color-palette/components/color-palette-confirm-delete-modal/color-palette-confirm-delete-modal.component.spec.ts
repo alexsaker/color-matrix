@@ -11,6 +11,7 @@ import { NgxsModule } from '@ngxs/store';
 import { ColorPaletteState } from '../../store/color-palette.state';
 import { RouterTestingModule } from '@angular/router/testing';
 
+console.log('test');
 describe('ColorPaletteConfirmDeleteModalComponent', () => {
   let component: ColorPaletteConfirmDeleteModalComponent;
   let fixture: ComponentFixture<ColorPaletteConfirmDeleteModalComponent>;
