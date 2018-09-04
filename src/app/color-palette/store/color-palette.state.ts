@@ -88,7 +88,7 @@ export class ColorPaletteState implements NgxsOnInit {
 
   constructor(
     private store: Store,
-    private router:Router,
+    private router: Router,
     private colorPaletteService: ColorPaletteService
   ) {}
   ngxsOnInit(ctx: StateContext<ColorPaletteStateModel>) {
