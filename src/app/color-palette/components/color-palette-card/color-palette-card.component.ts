@@ -26,9 +26,7 @@ export class ColorPaletteCardComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {
-    console.log('$#@@#$$##@@COLOR PALETTE',this.colorPalette);
-  }
+  ngOnInit() {}
 
   public deleteColorPalette(id: string): void {
     const dialogRef = this.dialog.open(
