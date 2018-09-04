@@ -1,12 +1,3 @@
-export class ToggleSidenav {
-  static readonly type = '[App] ToggleSidenav';
-}
-export class CloseSidenav {
-  static readonly type = '[App] CloseSidenav';
-}
-export class OpenSidenav {
-  static readonly type = '[App] OpenSidenav';
-}
 export class DisplayMatrixToolbarForm {
   static readonly type = '[App] DisplayMatrixToolbarForm';
 }

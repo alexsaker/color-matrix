@@ -1,40 +1,107 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async) && (isSidenavOpened$ | async)">
-    <mat-toolbar class="toolbar-left" (click)="goHome()" color="accent">
-      <mat-icon>view_module</mat-icon>
-      <div class="title">Color Palettes</div>
-    </mat-toolbar>
-    <mat-nav-list>
-      <button mat-list-item mat-raised-button color="primary" class="button-create" (click)="openColorPaletteSaveModal()">
+<mat-toolbar color="accent">
+
+  <ng-container *ngIf="currentHeaderType === HeaderType.COLOR_PALETTE">
+    <div class="toolbar-left">
+      <div class="title">Colors for all</div>
+    </div>
+    <div class="toolbar-right">
+      <button mat-list-item mat-raised-button color="primary" class="button-create" (click)="createColorPalette()">
         <mat-icon class="icon-create">add</mat-icon>
         <span>Create</span>
       </button>
-      <ng-container *ngFor="let cp of (colorPalettes$ | async)">
-        <cm-navigation-item [colorPalette]="cp"></cm-navigation-item>
-      </ng-container>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar class="toolbar-right" color="accent">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Toggle sidenav toolbar">
-          menu
+      <button type="button" aria-label="Help" mat-icon-button (click)="goToHelp()">
+        <mat-icon aria-label="Help">
+          help_outline
         </mat-icon>
       </button>
-      <div class="toolbar-right-navigation">
-        <button type="button" aria-label="Toggle sidenav toolbar" mat-icon-button (click)="toggleSidenav()" *ngIf="!(isHandset$ | async)">
-          <mat-icon aria-label="Toggle sidenav toolbar">
-            menu
-          </mat-icon>
-        </button>
-        <span class="title">
-          Colors for all
-        </span>
-      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="currentHeaderType === HeaderType.DETAILED_COLOR_PALETTE">
+    <div class="toolbar-left">
+      <button mat-icon-button (click)="goBackToColorPaletteList()">
+        <mat-icon aria-label="Back to main view">
+          arrow_back
+        </mat-icon>
+
+      </button>
+      <div class="title">{{selectedColorPaletteSnapShot?.title}}</div>
+      <cm-matrix-custom-search class="custom-search"></cm-matrix-custom-search>
+    </div>
+    <div class="toolbar-right">
+      <button mat-button (click)="editColorPalette(selectedColorPaletteSnapShot?.id)">
+        <mat-icon class="icon-edit">edit</mat-icon>
+        <span class="button-text">EDIT</span>
+      </button>
+      <button mat-button (click)="duplicateColorPalette(selectedColorPaletteSnapShot?.id)">
+        <mat-icon>file_copy</mat-icon>
+        <span class="button-text">DUPLICATE</span>
+      </button>
+      <button mat-button (click)="deleteColorPalette(selectedColorPaletteSnapShot?.id)">
+        <mat-icon>delete</mat-icon>
+        <span class="button-text">DELETE</span>
+      </button>
+      <button type="button" aria-label="Help" mat-icon-button (click)="goToHelp()">
+        <mat-icon aria-label="Help">
+          help_outline
+        </mat-icon>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="currentHeaderType === HeaderType.HELP">
+    <div class="toolbar-left">
+      <button mat-icon-button (click)="goBackToColorPaletteList()">
+        <mat-icon aria-label="Back to main view">
+          arrow_back
+        </mat-icon>
+
+      </button>
+      <div class="title">Help</div>
+    </div>
+
+  </ng-container>
+
+  <!-- <div class="toolbar-left">
+    <ng-container *ngIf="!(isMatrixToolbarFormVisible$ | async)">
+      <div class="title">Colors for all</div>
+    </ng-container>
+    <ng-container *ngIf="isMatrixToolbarFormVisible$ | async">
+      <button mat-icon-button (click)="goBackToColorPaletteList()">
+        <mat-icon aria-label="Back to main view">
+          arrow_back
+        </mat-icon>
+
+      </button>
+      <div class="title">{{selectedColorPaletteSnapShot?.title}}</div>
       <cm-matrix-custom-search *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search"></cm-matrix-custom-search>
-    </mat-toolbar>
-    <!-- Add Content Here -->
-    <ng-content></ng-content>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </ng-container>
+  </div>
+  <div class="toolbar-right">
+    <ng-container *ngIf="!(isMatrixToolbarFormVisible$ | async)">
+
+      <button mat-list-item mat-raised-button color="primary" class="button-create" (click)="createColorPalette()">
+        <mat-icon class="icon-create">add</mat-icon>
+        <span>Create</span>
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="isMatrixToolbarFormVisible$ | async">
+      <button mat-button (click)="editColorPalette(selectedColorPaletteSnapShot?.id)">
+        <mat-icon class="icon-edit">edit</mat-icon>
+        <span class="button-text">EDIT</span>
+      </button>
+      <button mat-button (click)="duplicateColorPalette(selectedColorPaletteSnapShot?.id)">
+        <mat-icon>file_copy</mat-icon>
+        <span class="button-text">DUPLICATE</span>
+      </button>
+      <button mat-button (click)="deleteColorPalette(selectedColorPaletteSnapShot?.id)">
+        <mat-icon>delete</mat-icon>
+        <span class="button-text">DELETE</span>
+      </button>
+    </ng-container>
+ 
+  </div> -->
+</mat-toolbar>
+<!-- Add Content Here -->
+<ng-content></ng-content>

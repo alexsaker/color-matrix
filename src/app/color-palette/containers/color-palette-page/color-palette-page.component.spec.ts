@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ColorPalettePageComponent } from './color-palette-page.component';
@@ -12,7 +13,10 @@ describe('ColorPalettePageComponent', () => {
   let store: Store;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([ColorPaletteState])],
+      imports: [
+        NgxsModule.forRoot([ColorPaletteState]),
+        RouterTestingModule.withRoutes([])
+      ],
       declarations: [ColorPalettePageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();

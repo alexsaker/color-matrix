@@ -1,16 +1,17 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import * as uuid from 'uuid';
 
 import { ColorPalette } from '../../../color-palette/models/color-palette.model';
 import { SaveColorPalette } from '../../../color-palette/store/color-palette.actions';
 import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
-import { CloseSidenav, ToggleSidenav } from '../../../shared/store/app.actions';
-import { Navigate } from '../../../shared/store/router.state';
 import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/color-palette-save-modal.component';
+import { ColorPaletteConfirmDeleteModalComponent } from './../../../color-palette/components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
+import { DeleteColorPalette } from './../../../color-palette/store/color-palette.actions';
+import { HeaderType } from './../../enums/header.enum';
 
 @Component({
   selector: 'cm-navigation',
@@ -18,40 +19,109 @@ import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/colo
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  @Select(state => state.app.isSidenavOpened)
-  isSidenavOpened$: Observable<boolean>;
-  @Select(state => state.app.isMatrixToolbarFormVisible)
-  isMatrixToolbarFormVisible$: Observable<boolean>;
+  @Select(ColorPaletteState.selectedColorPalette)
+  selectedColorPalette$: Observable<ColorPalette>;
+
   @Select(ColorPaletteState.colorPalettes)
   colorPalettes$: Observable<ColorPalette[]>;
-  public isHandset$: Observable<boolean>;
-  public sidenavTitle: string;
+
+  public currentHeaderType: HeaderType;
+  public HeaderType = HeaderType;
+  public selectedColorPaletteSnapShot: ColorPalette;
   constructor(
-    private breakpointObserver: BreakpointObserver,
     private dialog: MatDialog,
+    private router: Router,
     private store: Store
   ) {}
 
   ngOnInit() {
-    this.isHandset$ = this.breakpointObserver
-      .observe(Breakpoints.Handset)
-      .pipe(map(result => result.matches));
+    this.selectedColorPalette$.subscribe(selectedColorPalette => {
+      this.selectedColorPaletteSnapShot = selectedColorPalette;
+    });
+
+    this.router.events.subscribe(events => {
+      if (events instanceof NavigationEnd) {
+        if (events.url.match(/^\/color\-palette$/)) {
+          this.currentHeaderType = HeaderType.COLOR_PALETTE;
+        } else if (events.url.match(/^\/color\-palette\/help$/)) {
+          this.currentHeaderType = HeaderType.HELP;
+        } else if (events.url.match(/^\/color\-palette\/[\w+\-]+$/)) {
+          this.currentHeaderType = HeaderType.DETAILED_COLOR_PALETTE;
+        } else {
+        }
+      }
+    });
   }
 
-  public toggleSidenav() {
-    this.store.dispatch(new ToggleSidenav());
+  public goToHelp() {
+    this.router.navigate(['/color-palette/help']);
+  }
+  public goBackToColorPaletteList() {
+    this.router.navigate(['/color-palette']);
   }
 
-  public goHome() {
-    this.store.dispatch(new Navigate('/color-palette'));
-  }
-
-  public openColorPaletteSaveModal() {
+  public createColorPalette() {
     const dialogRef = this.dialog.open(ColorPaletteSaveModalComponent, {
       width: '500px',
       height: '500px',
       data: {
         action: 'Create'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!!result) {
+        this.store.dispatch(new SaveColorPalette(result));
+      }
+    });
+  }
+
+  public editColorPalette(id: string): void {
+    const dialogRef = this.dialog.open(ColorPaletteSaveModalComponent, {
+      width: '500px',
+      height: '500px',
+      data: {
+        action: 'Edit',
+        colorPalette: this.selectedColorPaletteSnapShot
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!!result) {
+        this.store.dispatch(new SaveColorPalette(result));
+      }
+    });
+  }
+
+  public deleteColorPalette(id: string): void {
+    const dialogRef = this.dialog.open(
+      ColorPaletteConfirmDeleteModalComponent,
+      {
+        width: '550px',
+        data: {
+          title: this.selectedColorPaletteSnapShot.title
+        }
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!!result) {
+        this.store.dispatch(new DeleteColorPalette(id));
+      }
+    });
+  }
+
+  public duplicateColorPalette(id: string): void {
+    const duplicatedColorPalette = {
+      id: uuid.v4(),
+      title: `${this.selectedColorPaletteSnapShot.title}_Copy`,
+      data: this.selectedColorPaletteSnapShot.data
+    } as ColorPalette;
+    this.store.dispatch(new SaveColorPalette(duplicatedColorPalette));
+    const dialogRef = this.dialog.open(ColorPaletteSaveModalComponent, {
+      width: '500px',
+      height: '500px',
+      data: {
+        action: 'Edit',
+        colorPalette: duplicatedColorPalette
       }
     });
     dialogRef.afterClosed().subscribe(result => {

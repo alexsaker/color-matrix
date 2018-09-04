@@ -9,6 +9,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { ColorPaletteState } from '../../store/color-palette.state';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ColorPaletteConfirmDeleteModalComponent', () => {
   let component: ColorPaletteConfirmDeleteModalComponent;
@@ -19,7 +20,8 @@ describe('ColorPaletteConfirmDeleteModalComponent', () => {
       imports: [
         MatButtonModule,
         BrowserAnimationsModule,
-        NgxsModule.forRoot([ColorPaletteState])
+        NgxsModule.forRoot([ColorPaletteState]),
+        RouterTestingModule.withRoutes([])
       ],
       providers: [
         {

@@ -1,7 +1,6 @@
 :host {
-  .color-palette-page-container {
-    height: 83vh;
+    height: 100%;
     padding: 25px;
-    width: 100%;
-  }
+    width: 100vw;
+    overflow: auto;
 }

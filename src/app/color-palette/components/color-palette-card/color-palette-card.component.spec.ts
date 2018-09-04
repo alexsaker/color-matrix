@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -22,7 +23,6 @@ describe('ColorPaletteCardComponent', () => {
   let fixture: ComponentFixture<ColorPaletteCardComponent>;
   let store: Store;
   let dialog: MatDialog;
-  let dialogRef: MatDialogRef<ColorPaletteCardComponent>;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -31,7 +31,8 @@ describe('ColorPaletteCardComponent', () => {
         MatButtonModule,
         MatCardModule,
         MatMenuModule,
-        NgxsModule.forRoot([ColorPaletteState])
+        NgxsModule.forRoot([ColorPaletteState]),
+        RouterTestingModule.withRoutes([])
       ],
       providers: [
         {
@@ -49,7 +50,6 @@ describe('ColorPaletteCardComponent', () => {
     component = fixture.componentInstance;
     store = TestBed.get(Store);
     dialog = TestBed.get(MatDialog);
-    dialogRef = TestBed.get(MatDialogRef);
     fixture.detectChanges();
   });
 

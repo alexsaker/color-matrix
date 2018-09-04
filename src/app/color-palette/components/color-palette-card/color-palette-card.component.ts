@@ -1,15 +1,17 @@
-import { ColorPalette } from '../../models/color-palette.model';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { Component, OnInit, Input } from '@angular/core';
+import * as uuidv4 from 'uuid/v4';
+
+import { ColorPaletteSaveModalComponent } from '../../../core/components/color-palette-save-modal/color-palette-save-modal.component';
+import { ColorPalette } from '../../models/color-palette.model';
 import {
   DeleteColorPalette,
   SaveColorPalette
 } from '../../store/color-palette.actions';
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
-import { Navigate } from '../../../shared/store/router.state';
-import { ColorPaletteSaveModalComponent } from '../../../core/components/color-palette-save-modal/color-palette-save-modal.component';
-import * as uuidv4 from 'uuid/v4';
+
 @Component({
   selector: 'cm-color-palette-card',
   templateUrl: './color-palette-card.component.html',
@@ -18,9 +20,15 @@ import * as uuidv4 from 'uuid/v4';
 export class ColorPaletteCardComponent implements OnInit {
   @Input()
   colorPalette: ColorPalette;
-  constructor(private store: Store, private dialog: MatDialog) {}
+  constructor(
+    private router: Router,
+    private store: Store,
+    private dialog: MatDialog
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('$#@@#$$##@@COLOR PALETTE',this.colorPalette);
+  }
 
   public deleteColorPalette(id: string): void {
     const dialogRef = this.dialog.open(
@@ -78,6 +86,6 @@ export class ColorPaletteCardComponent implements OnInit {
   }
 
   public goToColorPalette(): void {
-    this.store.dispatch(new Navigate('/color-palette/' + this.colorPalette.id));
+    this.router.navigate([`/color-palette/${this.colorPalette.id}`]);
   }
 }

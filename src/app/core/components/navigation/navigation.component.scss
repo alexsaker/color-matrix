@@ -2,6 +2,10 @@
   ::ng-deep .mat-list-item {
     font-size: 14px !important;
   }
+  ::ng-deep  .mat-form-field-infix {
+    width: 120px;
+    padding: 0.2375em 0;
+  }
   .button-create {
     width: 100%;
     text-align: left;
@@ -13,24 +17,22 @@
   .mat-nav-list {
     padding-top: 0px;
   }
-  .sidenav-container {
-    height: 100%;
-  }
-  .sidenav {
-    width: 200px;
-  }
+  
   .mat-toolbar {
     z-index: 9999;
-    .toolbar-right-navigation {
+    display: flex;
+    justify-content: space-between;
+    .toolbar-right {
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
+      .button-text{
+        display: block;
+      }
     }
-    &.toolbar-left {
+    .toolbar-left {
       display: flex;
       align-items: center;
-      cursor: pointer;
       justify-content: left;
       padding-left: 10px;
       .title {
@@ -41,17 +43,10 @@
       margin: 25px;
     }
     &.mat-toolbar-single-row {
+      position: -webkit-sticky;
       position: sticky;
       top: 0;
     }
   }
 
-  .mat-sidenav-content {
-    display: grid !important;
-  }
-  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .mat-sidenav-content {
-      display: block !important;
-    }
-  }
 }

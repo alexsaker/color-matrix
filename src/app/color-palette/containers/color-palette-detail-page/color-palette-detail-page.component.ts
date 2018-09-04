@@ -25,4 +25,5 @@ export class ColorPaletteDetailPageComponent implements OnInit {
       this.store.dispatch(new SetSelectedColorPalette(p.id));
     });
   }
+ 
 }

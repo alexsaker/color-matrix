@@ -15,5 +15,7 @@ export class ColorPalettePageComponent implements OnInit {
   colorPalettes$: Observable<ColorPalette[]>;
   constructor(private store: Store) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.colorPalettes$.subscribe(test => console.log(test))
+  }
 }

@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed } from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 
@@ -18,7 +19,10 @@ describe('ColorPaletteExistsGuard', () => {
   let routerStateSnapshot: RouterStateSnapshot;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([ColorPaletteState])],
+      imports: [
+        NgxsModule.forRoot([ColorPaletteState]),
+        RouterTestingModule.withRoutes([])
+      ],
       providers: [
         ColorPaletteExistsGuard,
         Store,

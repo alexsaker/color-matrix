@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -15,7 +16,10 @@ describe('ColorPaletteDetailPageComponent', () => {
   const colorPaletteId = '49805fbc-11da-40ec-be35-c10774f22739';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgxsModule.forRoot([ColorPaletteState])],
+      imports: [
+        NgxsModule.forRoot([ColorPaletteState]),
+        RouterTestingModule.withRoutes([])
+      ],
       providers: [
         {
           provide: ActivatedRoute,

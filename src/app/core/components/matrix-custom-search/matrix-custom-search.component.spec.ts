@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +39,8 @@ describe('MatrixCustomSearchComponent', () => {
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MatSelectModule,
-        NgxsModule.forRoot([ColorPaletteState])
+        NgxsModule.forRoot([ColorPaletteState]),
+        RouterTestingModule.withRoutes([])
       ],
       providers: [],
       declarations: [MatrixCustomSearchComponent]
