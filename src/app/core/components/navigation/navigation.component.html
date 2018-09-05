@@ -61,47 +61,6 @@
     </div>
 
   </ng-container>
-
-  <!-- <div class="toolbar-left">
-    <ng-container *ngIf="!(isMatrixToolbarFormVisible$ | async)">
-      <div class="title">Colors for all</div>
-    </ng-container>
-    <ng-container *ngIf="isMatrixToolbarFormVisible$ | async">
-      <button mat-icon-button (click)="goBackToColorPaletteList()">
-        <mat-icon aria-label="Back to main view">
-          arrow_back
-        </mat-icon>
-
-      </button>
-      <div class="title">{{selectedColorPaletteSnapShot?.title}}</div>
-      <cm-matrix-custom-form *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search"></cm-matrix-custom-form>
-    </ng-container>
-  </div>
-  <div class="toolbar-right">
-    <ng-container *ngIf="!(isMatrixToolbarFormVisible$ | async)">
-
-      <button mat-list-item mat-raised-button color="primary" class="button-create" (click)="createColorPalette()">
-        <mat-icon class="icon-create">add</mat-icon>
-        <span>Create</span>
-      </button>
-    </ng-container>
-
-    <ng-container *ngIf="isMatrixToolbarFormVisible$ | async">
-      <button mat-button (click)="editColorPalette(selectedColorPaletteSnapShot?.id)">
-        <mat-icon class="icon-edit">edit</mat-icon>
-        <span class="button-text">EDIT</span>
-      </button>
-      <button mat-button (click)="duplicateColorPalette(selectedColorPaletteSnapShot?.id)">
-        <mat-icon>file_copy</mat-icon>
-        <span class="button-text">DUPLICATE</span>
-      </button>
-      <button mat-button (click)="deleteColorPalette(selectedColorPaletteSnapShot?.id)">
-        <mat-icon>delete</mat-icon>
-        <span class="button-text">DELETE</span>
-      </button>
-    </ng-container>
- 
-  </div> -->
 </mat-toolbar>
-<!-- Add Content Here -->
+
 <ng-content></ng-content>

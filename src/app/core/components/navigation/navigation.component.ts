@@ -48,6 +48,7 @@ export class NavigationComponent implements OnInit {
         } else if (events.url.match(/^\/color\-palette\/[\w+\-]+$/)) {
           this.currentHeaderType = HeaderType.DETAILED_COLOR_PALETTE;
         } else {
+          this.currentHeaderType = HeaderType.COLOR_PALETTE;
         }
       }
     });
