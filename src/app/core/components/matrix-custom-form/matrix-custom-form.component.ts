@@ -9,11 +9,11 @@ import { SetSelectedMatrix } from '../../../color-palette/store/color-palette.ac
 import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
 
 @Component({
-  selector: 'cm-matrix-custom-search',
-  templateUrl: './matrix-custom-search.component.html',
-  styleUrls: ['./matrix-custom-search.component.scss']
+  selector: 'cm-matrix-custom-form',
+  templateUrl: './matrix-custom-form.component.html',
+  styleUrls: ['./matrix-custom-form.component.scss']
 })
-export class MatrixCustomSearchComponent implements OnInit {
+export class MatrixCustomFormComponent implements OnInit {
   @Select(ColorPaletteState.selectedMatrix)
   selectedMatrix$: Observable<ColorMatrixSelection>;
   @Select(ColorPaletteState.colorPaletteSizes)

@@ -6,7 +6,7 @@ import {
 } from './../../shared/store/app.actions';
 import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store';
 import { range } from 'lodash';
-import * as uuidv4 from 'uuid/v4';
+import * as uuid from 'uuid';
 import { FontWeight } from '../enums/font-weight.enum';
 import { ColorPalette } from '../models/color-palette.model';
 import { ColorPaletteService } from '../services/color-palette.service';
@@ -22,7 +22,29 @@ import { Store } from '@ngxs/store';
 
 export const RANGE_START = 12;
 export const RANGE_END = 25;
-
+export const DEFAULT_COLOR_PALETTE_STATE = {
+  ids: [],
+  entities: {},
+  error: null,
+  selected: null,
+  selectedMatrix: { size: 12, fontWeight: FontWeight.NORMAL },
+  sizes: range(RANGE_START, RANGE_END),
+  fontWeights: [
+    FontWeight.LIGHTER,
+    FontWeight.NORMAL,
+    FontWeight.BOLD,
+    FontWeight.BOLDER,
+    FontWeight.ONE_HUNDRED,
+    FontWeight.TWO_HUNDRED,
+    FontWeight.THREE_HUNDRED,
+    FontWeight.FOUR_HUNDRED,
+    FontWeight.FIVE_HUNDRED,
+    FontWeight.SIX_HUNDRED,
+    FontWeight.SEVEN_HUNDRED,
+    FontWeight.EIGHT_HUNDRED,
+    FontWeight.NINE_HUNDRED
+  ]
+};
 export interface ColorPaletteStateModel {
   ids: string[];
   entities: { [key: string]: ColorPalette };
@@ -34,47 +56,25 @@ export interface ColorPaletteStateModel {
 }
 @State<ColorPaletteStateModel>({
   name: 'colorPalettes',
-  defaults: {
-    ids: [],
-    entities: {},
-    error: null,
-    selected: null,
-    selectedMatrix: { size: 12, fontWeight: FontWeight.NORMAL },
-    sizes: range(RANGE_START, RANGE_END),
-    fontWeights: [
-      FontWeight.LIGHTER,
-      FontWeight.NORMAL,
-      FontWeight.BOLD,
-      FontWeight.BOLDER,
-      FontWeight.ONE_HUNDRED,
-      FontWeight.TWO_HUNDRED,
-      FontWeight.THREE_HUNDRED,
-      FontWeight.FOUR_HUNDRED,
-      FontWeight.FIVE_HUNDRED,
-      FontWeight.SIX_HUNDRED,
-      FontWeight.SEVEN_HUNDRED,
-      FontWeight.EIGHT_HUNDRED,
-      FontWeight.NINE_HUNDRED
-    ]
-  }
+  defaults: DEFAULT_COLOR_PALETTE_STATE
 })
 export class ColorPaletteState implements NgxsOnInit {
   @Selector()
-  static colorPalettes(state: ColorPaletteStateModel) {
+  static colorPalettes(state: ColorPaletteStateModel): ColorPalette[] {
     return Object.keys(state.entities).map(key => state.entities[key]);
   }
 
   @Selector()
-  static colorPaletteSizes(state: ColorPaletteStateModel) {
+  static colorPaletteSizes(state: ColorPaletteStateModel): number[] {
     return state.sizes;
   }
   @Selector()
-  static colorPaletteFontWeights(state: ColorPaletteStateModel) {
+  static colorPaletteFontWeights(state: ColorPaletteStateModel): string[] {
     return state.fontWeights;
   }
 
   @Selector()
-  static colorPaletteIds(state: ColorPaletteStateModel) {
+  static colorPaletteIds(state: ColorPaletteStateModel): string[] {
     return state.ids;
   }
   @Selector()
@@ -82,7 +82,7 @@ export class ColorPaletteState implements NgxsOnInit {
     return state.selected ? state.entities[state.selected] : null;
   }
   @Selector()
-  static selectedMatrix(state: ColorPaletteStateModel) {
+  static selectedMatrix(state: ColorPaletteStateModel): ColorMatrixSelection {
     return state.selectedMatrix;
   }
 
@@ -137,7 +137,7 @@ export class ColorPaletteState implements NgxsOnInit {
       const colorPalette: ColorPalette = action.colorPalette;
       if (!colorPalette.id) {
         actionType = 'CREATION';
-        colorPalette.id = uuidv4();
+        colorPalette.id = uuid.v4();
       }
       const colorPaletteEntity = {};
 
@@ -203,7 +203,6 @@ export class ColorPaletteState implements NgxsOnInit {
     ctx: StateContext<ColorPaletteStateModel>,
     action: SetSelectedMatrix
   ) {
-    const state = ctx.getState();
     ctx.patchState({
       selectedMatrix: { size: action.size, fontWeight: action.fontWeight }
     });

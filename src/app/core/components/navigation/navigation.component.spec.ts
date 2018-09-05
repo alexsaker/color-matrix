@@ -1,7 +1,12 @@
+import { ColorPaletteListComponent } from './../../../color-palette/components/color-palette-list/color-palette-list.component';
 import { ColorPalette } from './../../../color-palette/models/color-palette.model';
 import { DeleteColorPalette } from './../../../color-palette/store/color-palette.actions';
 import { ColorPaletteConfirmDeleteModalComponent } from './../../../color-palette/components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  NO_ERRORS_SCHEMA
+} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatButtonModule,
@@ -21,6 +26,7 @@ import { SaveColorPalette } from '../../../color-palette/store/color-palette.act
 import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
 import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/color-palette-save-modal.component';
 import { NavigationComponent } from './navigation.component';
+import { MockComponent, mockRoutes } from '../../../../../mock/routes.mock';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -43,7 +49,7 @@ describe('NavigationComponent', () => {
         MatButtonModule,
         BrowserAnimationsModule,
         NgxsModule.forRoot([ColorPaletteState]),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes(mockRoutes)
       ],
       providers: [
         {
@@ -51,7 +57,7 @@ describe('NavigationComponent', () => {
           useValue: jasmine.createSpyObj('MatDialogRef', ['afterClosed'])
         }
       ],
-      declarations: [NavigationComponent],
+      declarations: [NavigationComponent, MockComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
     fixture = TestBed.createComponent(NavigationComponent);

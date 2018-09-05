@@ -25,7 +25,7 @@ export class ColorMatrixService {
       color: foregroundColor
     } as Object;
     const ratio = this.calculateRatio(
-      this.contrast(LtextColor, LbackgroundColor)
+      this.getContrast(LtextColor, LbackgroundColor)
     );
     const level = this.getWCAGLevel(size, ratio, fontWeight);
     return {
@@ -38,21 +38,21 @@ export class ColorMatrixService {
     };
   }
 
-  public getLuminance(r: number, g: number, b: number) {
+  private getLuminance(r: number, g: number, b: number) {
     const a = [r, g, b].map(v => {
       v /= 255;
       return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
     });
     return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
   }
-  public contrast(rgb1, rgb2) {
+  private getContrast(rgb1, rgb2) {
     return (
       (this.getLuminance(rgb1[0], rgb1[1], rgb1[2]) + 0.05) /
       (this.getLuminance(rgb2[0], rgb2[1], rgb2[2]) + 0.05)
     );
   }
 
-  public calculateRatio(contrast: number): number {
+  private calculateRatio(contrast: number): number {
     let ratio = 1 / contrast;
     if (ratio < 1) {
       ratio = 1 / ratio;
@@ -60,11 +60,11 @@ export class ColorMatrixService {
     return Number(ratio.toFixed(2));
   }
 
-  public setRatioTitle(ratio: number): string {
+  private setRatioTitle(ratio: number): string {
     return ratio + ':1';
   }
 
-  public getWCAGLevel(size: number, ratio: number, fontWeight: FontWeight) {
+  private getWCAGLevel(size: number, ratio: number, fontWeight: FontWeight) {
     let level = 'X';
     if (ratio >= 7) {
       level = 'AAA';

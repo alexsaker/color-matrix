@@ -26,7 +26,7 @@
 
       </button>
       <div class="title">{{selectedColorPaletteSnapShot?.title}}</div>
-      <cm-matrix-custom-search class="custom-search"></cm-matrix-custom-search>
+      <cm-matrix-custom-form class="custom-search"></cm-matrix-custom-form>
     </div>
     <div class="toolbar-right">
       <button mat-button (click)="editColorPalette(selectedColorPaletteSnapShot?.id)">
@@ -74,7 +74,7 @@
 
       </button>
       <div class="title">{{selectedColorPaletteSnapShot?.title}}</div>
-      <cm-matrix-custom-search *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search"></cm-matrix-custom-search>
+      <cm-matrix-custom-form *ngIf="isMatrixToolbarFormVisible$ | async" class="custom-search"></cm-matrix-custom-form>
     </ng-container>
   </div>
   <div class="toolbar-right">

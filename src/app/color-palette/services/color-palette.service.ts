@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as uuidv4 from 'uuid/v4';
+import * as uuid from 'uuid';
 
 import { ColorPalette } from '../models/color-palette.model';
 
@@ -37,7 +37,7 @@ export class ColorPaletteService {
 
   public getDefaultColorPalette(): ColorPalette {
     const cp: ColorPalette = {
-      id: uuidv4(),
+      id: uuid.v4(),
       title: 'Amadeus Default',
       data: this.DEFAULT_COLOR_SPAN
     };

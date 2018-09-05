@@ -2,7 +2,7 @@
   ::ng-deep .mat-list-item {
     font-size: 14px !important;
   }
-  ::ng-deep  .mat-form-field-infix {
+  ::ng-deep .mat-form-field-infix {
     width: 120px;
     padding: 0.2375em 0;
   }
@@ -17,16 +17,16 @@
   .mat-nav-list {
     padding-top: 0px;
   }
-  
+
   .mat-toolbar {
-    z-index: 9999;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     .toolbar-right {
       display: flex;
       align-items: center;
       justify-content: center;
-      .button-text{
+      .button-text {
         display: block;
       }
     }
@@ -48,5 +48,4 @@
       top: 0;
     }
   }
-
 }

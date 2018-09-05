@@ -16,7 +16,7 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatrixCustomSearchComponent } from './components/matrix-custom-search/matrix-custom-search.component';
+import { MatrixCustomFormComponent } from './components/matrix-custom-form/matrix-custom-form.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ColorPaletteSaveModalComponent } from './components/color-palette-save-modal/color-palette-save-modal.component';
@@ -41,7 +41,7 @@ const MODULES = [
 const DECLARATIONS = [
   NavigationComponent,
   PageNotFoundComponent,
-  MatrixCustomSearchComponent,
+  MatrixCustomFormComponent,
   ColorPaletteSaveModalComponent,
   ColorPaletteConfirmDeleteModalComponent
 ];

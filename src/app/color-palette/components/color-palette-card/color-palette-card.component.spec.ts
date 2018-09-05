@@ -1,7 +1,7 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import {
   MatButtonModule,
   MatCardModule,
@@ -17,6 +17,7 @@ import { ColorPaletteState } from '../../store/color-palette.state';
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
 import { ColorPaletteCardComponent } from './color-palette-card.component';
 import { DeleteColorPalette } from '../../store/color-palette.actions';
+import { MockComponent, mockRoutes } from '../../../../../mock/routes.mock';
 
 describe('ColorPaletteCardComponent', () => {
   let component: ColorPaletteCardComponent;
@@ -32,7 +33,7 @@ describe('ColorPaletteCardComponent', () => {
         MatCardModule,
         MatMenuModule,
         NgxsModule.forRoot([ColorPaletteState]),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes(mockRoutes)
       ],
       providers: [
         {
@@ -40,7 +41,7 @@ describe('ColorPaletteCardComponent', () => {
           useValue: jasmine.createSpyObj('MatDialogRef', ['afterClosed'])
         }
       ],
-      declarations: [ColorPaletteCardComponent],
+      declarations: [ColorPaletteCardComponent, MockComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));

@@ -11,21 +11,27 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { MatSnackBarModule } from '@angular/material';
+import { environment } from '../environments/environment';
+
+const IMPORTS = [
+  BrowserModule,
+  AppRoutingModule,
+  CoreModule,
+  MatSnackBarModule,
+  NgxsModule.forRoot([RouterState, AppState]),
+
+  NgxsStoragePluginModule.forRoot({
+    key: ['colorPalettes', 'app']
+  })
+];
+if (!environment.production) {
+  IMPORTS.push(NgxsReduxDevtoolsPluginModule.forRoot());
+  IMPORTS.push(NgxsLoggerPluginModule.forRoot());
+}
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CoreModule,
-    MatSnackBarModule,
-    NgxsModule.forRoot([RouterState, AppState]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
-    NgxsStoragePluginModule.forRoot({
-      key: ['colorPalettes', 'app']
-    })
-  ],
+  imports: [...IMPORTS],
   providers: [],
   bootstrap: [AppComponent]
 })

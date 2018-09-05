@@ -18,7 +18,6 @@ export class MatrixCellComponent implements OnInit {
   data: ColorMatrixCell;
   @Input()
   type: string;
-  constructor() {}
 
   ngOnInit() {}
 

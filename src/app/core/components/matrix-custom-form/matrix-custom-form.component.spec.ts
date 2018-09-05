@@ -12,7 +12,7 @@ import {
   RANGE_END,
   RANGE_START
 } from '../../../color-palette/store/color-palette.state';
-import { MatrixCustomSearchComponent } from './matrix-custom-search.component';
+import { MatrixCustomFormComponent } from './matrix-custom-form.component';
 import { SetSelectedMatrix } from '../../../color-palette/store/color-palette.actions';
 
 export const DEFAULT_STATE = {
@@ -29,9 +29,9 @@ export const DEFAULT_STATE = {
     ]
   }
 };
-describe('MatrixCustomSearchComponent', () => {
-  let component: MatrixCustomSearchComponent;
-  let fixture: ComponentFixture<MatrixCustomSearchComponent>;
+describe('MatrixCustomFormComponent', () => {
+  let component: MatrixCustomFormComponent;
+  let fixture: ComponentFixture<MatrixCustomFormComponent>;
   let store: Store;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,12 +43,12 @@ describe('MatrixCustomSearchComponent', () => {
         RouterTestingModule.withRoutes([])
       ],
       providers: [],
-      declarations: [MatrixCustomSearchComponent]
+      declarations: [MatrixCustomFormComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MatrixCustomSearchComponent);
+    fixture = TestBed.createComponent(MatrixCustomFormComponent);
     component = fixture.componentInstance;
     store = TestBed.get(Store);
     store.reset(DEFAULT_STATE);
