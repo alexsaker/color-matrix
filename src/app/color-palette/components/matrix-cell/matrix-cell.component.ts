@@ -21,7 +21,7 @@ export class MatrixCellComponent implements OnInit {
 
   ngOnInit() {}
 
-  public setBadgeStyle(style: Object): Object {
+  public setBadgeStyle(style: object): object {
     return style && style['color'] && style['background-color']
       ? {
           color: style['background-color'],

@@ -23,7 +23,7 @@ export class ColorMatrixService {
       'font-weight': fontWeight,
       'background-color': backgroundColor,
       color: foregroundColor
-    } as Object;
+    } as object;
     const ratio = this.calculateRatio(
       this.getContrast(LtextColor, LbackgroundColor)
     );

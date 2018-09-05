@@ -3,7 +3,7 @@ import { FontWeight } from './../enums/font-weight.enum';
 export interface ColorMatrixCell {
   backgroundColor: string;
   foregroundColor: string;
-  style: Object;
+  style: object;
   title: string;
   compliance: string;
   ratio: number;
