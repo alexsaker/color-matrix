@@ -11,9 +11,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let backgroundColor of colorPalette?.data">
-          <td title="{{backgroundColor}}" class="text-header" [style.backgroundColor]="backgroundColor">
+          <th title="{{backgroundColor}}" class="text-header" [style.backgroundColor]="backgroundColor">
             <div>{{backgroundColor}}</div>
-          </td>
+          </th>
           <td [style.backgroundColor]="backgroundColor" *ngFor="let foregroundColor of colorPalette?.data">
             <cm-matrix-cell [data]="computeColorMatrixData(backgroundColor,foregroundColor,selectedMatrix.size,selectedMatrix.fontWeight)"></cm-matrix-cell>
           </td>
