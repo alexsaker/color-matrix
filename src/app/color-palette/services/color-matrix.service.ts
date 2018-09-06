@@ -87,7 +87,7 @@ export class ColorMatrixService {
           // BOLD
           level = 'AAA';
         }
-      } else if (size > 24) {
+      } else if (size >= 24) {
         level = 'AAA';
       }
     } else if (ratio >= 3 && ratio < 4.5) {

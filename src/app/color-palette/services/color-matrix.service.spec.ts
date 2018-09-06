@@ -197,7 +197,6 @@ describe('ColorMatrixService', () => {
           expectedResult
         );
       });
-      // jfkdlasf
       it('should set level to AA when fontWeight equal to lighter and size < 24', () => {
         const size = 18.66;
         const ratio = 6.99;
