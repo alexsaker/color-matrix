@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AppState } from './shared/store/app.state';
-import { RouterState } from './shared/store/router.state';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { MatSnackBarModule } from '@angular/material';
 import { environment } from '../environments/environment';
@@ -18,11 +19,12 @@ const IMPORTS = [
   AppRoutingModule,
   CoreModule,
   MatSnackBarModule,
-  NgxsModule.forRoot([RouterState, AppState]),
+  NgxsModule.forRoot([AppState]),
 
   NgxsStoragePluginModule.forRoot({
     key: ['colorPalettes', 'app']
-  })
+  }),
+  NgxsRouterPluginModule.forRoot()
 ];
 if (!environment.production) {
   IMPORTS.push(NgxsReduxDevtoolsPluginModule.forRoot());

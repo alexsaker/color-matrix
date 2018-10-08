@@ -1,3 +1,4 @@
+import { Navigate } from '@ngxs/router-plugin';
 import { ColorPaletteListComponent } from './../../../color-palette/components/color-palette-list/color-palette-list.component';
 import { ColorPalette } from './../../../color-palette/models/color-palette.model';
 import { DeleteColorPalette } from './../../../color-palette/store/color-palette.actions';
@@ -81,15 +82,19 @@ describe('NavigationComponent', () => {
   });
 
   it('Should navigate to help when goToHelp method called', () => {
-    spyOn(router, 'navigate');
+    spyOn(store, 'dispatch');
     component.goToHelp();
-    expect(router.navigate).toHaveBeenCalledWith(['/color-palette/help']);
+    expect(store.dispatch).toHaveBeenCalledWith(
+      new Navigate(['/color-palette/help'])
+    );
   });
 
   it('Should navigate to color palette list when goBackToColorPaletteList method called', () => {
-    spyOn(router, 'navigate');
+    spyOn(store, 'dispatch');
     component.goBackToColorPaletteList();
-    expect(router.navigate).toHaveBeenCalledWith(['/color-palette']);
+    expect(store.dispatch).toHaveBeenCalledWith(
+      new Navigate(['/color-palette'])
+    );
   });
 
   describe('When createColorPalette activated', () => {

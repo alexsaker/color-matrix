@@ -1,3 +1,4 @@
+import { Navigate } from '@ngxs/router-plugin';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NavigationEnd, Router } from '@angular/router';
@@ -55,10 +56,10 @@ export class NavigationComponent implements OnInit {
   }
 
   public goToHelp() {
-    this.router.navigate(['/color-palette/help']);
+    this.store.dispatch(new Navigate(['/color-palette/help']));
   }
   public goBackToColorPaletteList() {
-    this.router.navigate(['/color-palette']);
+    this.store.dispatch(new Navigate(['/color-palette']));
   }
 
   public createColorPalette() {

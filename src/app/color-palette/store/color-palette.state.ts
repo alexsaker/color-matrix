@@ -1,3 +1,4 @@
+import { Navigate } from '@ngxs/router-plugin';
 import { Router } from '@angular/router';
 import { ColorMatrixSelection } from './../models/color-matrix.model';
 import {
@@ -151,7 +152,7 @@ export class ColorPaletteState implements NgxsOnInit {
           ? 'Color Palette has been created successfully'
           : 'Color Palette has been saved successfully';
       this.store.dispatch(new ShowSuccessSnackBar(snackBarMessage));
-      this.router.navigate([`/color-palette/${colorPalette.id}`]);
+      this.store.dispatch(new Navigate([`/color-palette/${colorPalette.id}`]));
     } catch (error) {
       this.store.dispatch(new ShowErrorSnackBar(error.message));
       ctx.patchState({ error: error });
@@ -172,7 +173,8 @@ export class ColorPaletteState implements NgxsOnInit {
         ids: [...stateIds],
         entities: { ...stateEntities }
       });
-      this.router.navigate([`/color-palette`]);
+      this.store.dispatch(new Navigate([`/color-palette`]));
+
       this.store.dispatch(
         new ShowSuccessSnackBar('Color Palette has been deleted successfully.')
       );

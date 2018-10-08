@@ -11,6 +11,7 @@ import {
   SaveColorPalette
 } from '../../store/color-palette.actions';
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'cm-color-palette-card',
@@ -84,6 +85,8 @@ export class ColorPaletteCardComponent implements OnInit {
   }
 
   public goToColorPalette(): void {
-    this.router.navigate([`/color-palette/${this.colorPalette.id}`]);
+    this.store.dispatch(
+      new Navigate([`/color-palette/${this.colorPalette.id}`])
+    );
   }
 }
