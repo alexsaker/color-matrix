@@ -1,16 +1,23 @@
 import { Navigate } from '@ngxs/router-plugin';
-import { Router } from '@angular/router';
-import { ColorMatrixSelection } from './../models/color-matrix.model';
+import {
+  Action,
+  NgxsOnInit,
+  Selector,
+  State,
+  StateContext,
+  Store
+} from '@ngxs/store';
+import { range } from 'lodash';
+import * as uuid from 'uuid';
+
+import { FontWeight } from '../enums/font-weight.enum';
+import { ColorPalette } from '../models/color-palette.model';
+import { ColorPaletteService } from '../services/color-palette.service';
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar
 } from './../../shared/store/app.actions';
-import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store';
-import { range } from 'lodash';
-import * as uuid from 'uuid';
-import { FontWeight } from '../enums/font-weight.enum';
-import { ColorPalette } from '../models/color-palette.model';
-import { ColorPaletteService } from '../services/color-palette.service';
+import { ColorMatrixSelection } from './../models/color-matrix.model';
 import {
   DeleteColorPalette,
   LoadColorPalettes,
@@ -19,7 +26,6 @@ import {
   SetSelectedColorPalette,
   SetSelectedMatrix
 } from './color-palette.actions';
-import { Store } from '@ngxs/store';
 
 export const RANGE_START = 12;
 export const RANGE_END = 25;
@@ -89,7 +95,6 @@ export class ColorPaletteState implements NgxsOnInit {
 
   constructor(
     private store: Store,
-    private router: Router,
     private colorPaletteService: ColorPaletteService
   ) {}
   ngxsOnInit(ctx: StateContext<ColorPaletteStateModel>) {
@@ -104,9 +109,10 @@ export class ColorPaletteState implements NgxsOnInit {
   loadColorPalettes(ctx: StateContext<ColorPaletteStateModel>) {
     try {
       const state = ctx.getState();
-      const colorPalettesFromLocalStorage = JSON.parse(
-        localStorage.getItem('colorPalettes')
-      );
+      const storedState = localStorage.getItem('@@STATE');
+      const colorPalettesFromLocalStorage = storedState
+        ? JSON.parse(storedState).colorPalettes
+        : null;
       if (
         !!colorPalettesFromLocalStorage &&
         !!colorPalettesFromLocalStorage.ids &&
@@ -120,7 +126,8 @@ export class ColorPaletteState implements NgxsOnInit {
       ctx.setState({
         ...state,
         ids: [colorPalette.id],
-        entities: colorPaletteDefaultEntity
+        entities: colorPaletteDefaultEntity,
+        selected: colorPalette.id
       });
     } catch (error) {
       ctx.dispatch(new SetErrors([error]));

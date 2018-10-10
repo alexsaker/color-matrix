@@ -1,7 +1,7 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import { ColorMatrixService } from './color-matrix.service';
 import { FontWeight } from '../enums/font-weight.enum';
+import { ColorMatrixService } from './color-matrix.service';
 
 describe('ColorMatrixService', () => {
   let service: ColorMatrixService;

@@ -22,7 +22,7 @@ const IMPORTS = [
   NgxsModule.forRoot([AppState]),
 
   NgxsStoragePluginModule.forRoot({
-    key: ['colorPalettes', 'app']
+    key: '@@STATE'
   }),
   NgxsRouterPluginModule.forRoot()
 ];

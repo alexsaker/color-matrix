@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
   ActivatedRouteSnapshot,
+  CanActivate,
   RouterStateSnapshot
 } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Store, Select } from '@ngxs/store';
-import { take, map, tap, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+
 import { ColorPaletteState } from '../store/color-palette.state';
 
 @Injectable({

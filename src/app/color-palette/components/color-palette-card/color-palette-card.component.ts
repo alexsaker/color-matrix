@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import * as uuidv4 from 'uuid/v4';
 
@@ -11,7 +11,6 @@ import {
   SaveColorPalette
 } from '../../store/color-palette.actions';
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
-import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'cm-color-palette-card',
@@ -21,11 +20,7 @@ import { Navigate } from '@ngxs/router-plugin';
 export class ColorPaletteCardComponent implements OnInit {
   @Input()
   colorPalette: ColorPalette;
-  constructor(
-    private router: Router,
-    private store: Store,
-    private dialog: MatDialog
-  ) {}
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit() {}
 

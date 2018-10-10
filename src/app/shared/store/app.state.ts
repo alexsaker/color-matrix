@@ -1,11 +1,7 @@
-import { Action, State, StateContext } from '@ngxs/store';
-import {
-  DisplayMatrixToolbarForm,
-  HideMatrixToolbarForm,
-  ShowSuccessSnackBar,
-  ShowErrorSnackBar
-} from './app.actions';
 import { MatSnackBar } from '@angular/material';
+import { Action, State } from '@ngxs/store';
+
+import { ShowErrorSnackBar, ShowSuccessSnackBar } from './app.actions';
 
 export interface AppStateModel {
   version: number;
@@ -22,19 +18,13 @@ export class AppState {
   constructor(public snackBar: MatSnackBar) {}
 
   @Action(ShowSuccessSnackBar)
-  showSuccessSnackBar(
-    ctx: StateContext<AppStateModel>,
-    action: ShowSuccessSnackBar
-  ) {
+  showSuccessSnackBar(_, action: ShowSuccessSnackBar) {
     this.snackBar.open(action.message, null, {
       duration: AppState.SNACKBAR_BAR
     });
   }
   @Action(ShowErrorSnackBar)
-  showErrorSnackBar(
-    ctx: StateContext<AppStateModel>,
-    action: ShowErrorSnackBar
-  ) {
+  showErrorSnackBar(_, action: ShowErrorSnackBar) {
     this.snackBar.open(action.message, 'CLOSE', {
       duration: AppState.SNACKBAR_BAR
     });

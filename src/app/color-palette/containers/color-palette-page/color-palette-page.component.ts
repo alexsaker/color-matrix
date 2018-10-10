@@ -1,7 +1,8 @@
-import { ColorPalette } from '../../models/color-palette.model';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Select, Store } from '@ngxs/store';
+
+import { ColorPalette } from '../../models/color-palette.model';
 import { ColorPaletteState } from '../../store/color-palette.state';
 
 @Component({
@@ -13,7 +14,7 @@ import { ColorPaletteState } from '../../store/color-palette.state';
 export class ColorPalettePageComponent implements OnInit {
   @Select(ColorPaletteState.colorPalettes)
   colorPalettes$: Observable<ColorPalette[]>;
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit() {}
 }

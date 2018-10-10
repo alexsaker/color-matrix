@@ -6,7 +6,6 @@ import { range } from 'lodash';
 
 import { ColorPaletteService } from '../services/color-palette.service';
 import { FontWeight } from './../enums/font-weight.enum';
-import { SetSelectedMatrix } from './color-palette.actions';
 import {
   ColorPaletteState,
   DEFAULT_COLOR_PALETTE_STATE,

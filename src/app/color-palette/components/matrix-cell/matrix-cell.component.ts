@@ -1,10 +1,10 @@
-import { log } from 'util';
 import {
+  ChangeDetectionStrategy,
   Component,
-  OnInit,
   Input,
-  ChangeDetectionStrategy
+  OnInit
 } from '@angular/core';
+
 import { ColorMatrixCell } from '../../models/color-matrix.model';
 
 @Component({
