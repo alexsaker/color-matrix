@@ -1,4 +1,4 @@
-import { FontWeight } from './../enums/font-weight.enum';
+import { FontWeight } from '../../core/enums/font-weight.enum';
 
 export interface ColorMatrixCell {
   backgroundColor: string;

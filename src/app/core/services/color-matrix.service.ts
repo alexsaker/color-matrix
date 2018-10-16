@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { inputToRGB } from '@ctrl/tinycolor';
 
-import { FontWeight } from '../enums/font-weight.enum';
+import { FontWeight } from '../../core/enums/font-weight.enum';
 import { ColorMatrixCell } from '../models/color-matrix.model';
 
 @Injectable({

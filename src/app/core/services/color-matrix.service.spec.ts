@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FontWeight } from '../enums/font-weight.enum';
+import { FontWeight } from '../../core/enums/font-weight.enum';
 import { ColorMatrixService } from './color-matrix.service';
 
 describe('ColorMatrixService', () => {
