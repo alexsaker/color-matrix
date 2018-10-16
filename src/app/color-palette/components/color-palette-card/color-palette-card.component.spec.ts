@@ -1,7 +1,5 @@
-import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import {
   MatButtonModule,
   MatCardModule,
@@ -11,19 +9,26 @@ import {
   MatMenuModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import { of } from 'rxjs';
-import { ColorPaletteState } from '../../store/color-palette.state';
+
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
+import { MockComponent, mockRoutes } from './../../../../../mock/routes.mock';
+import {
+  DeleteColorPalette,
+  SetSelectedColorPalette
+} from './../../../core/state/color-palette.actions';
+import { ColorPaletteState } from './../../../core/state/color-palette.state';
 import { ColorPaletteCardComponent } from './color-palette-card.component';
-import { DeleteColorPalette } from '../../store/color-palette.actions';
-import { MockComponent, mockRoutes } from '../../../../../mock/routes.mock';
 
 describe('ColorPaletteCardComponent', () => {
   let component: ColorPaletteCardComponent;
   let fixture: ComponentFixture<ColorPaletteCardComponent>;
   let store: Store;
   let dialog: MatDialog;
+  let router: any;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -36,6 +41,10 @@ describe('ColorPaletteCardComponent', () => {
         RouterTestingModule.withRoutes(mockRoutes)
       ],
       providers: [
+        {
+          provide: Router,
+          useValue: jasmine.createSpyObj('Router', ['navigate'])
+        },
         {
           provide: MatDialogRef,
           useValue: jasmine.createSpyObj('MatDialogRef', ['afterClosed'])
@@ -51,6 +60,7 @@ describe('ColorPaletteCardComponent', () => {
     component = fixture.componentInstance;
     store = TestBed.get(Store);
     dialog = TestBed.get(MatDialog);
+    router = TestBed.get(Router);
     fixture.detectChanges();
   });
 
@@ -111,5 +121,21 @@ describe('ColorPaletteCardComponent', () => {
     expect(store.dispatch).not.toHaveBeenCalledWith(
       new DeleteColorPalette(component.colorPalette.id)
     );
+  });
+
+  it('should got to color palette page', () => {
+    spyOn(store, 'dispatch');
+    component.colorPalette = {
+      id: '49805fbc-11da-40ec-be35-c10774f22739',
+      title: 'test',
+      data: ['#555']
+    };
+    component.goToColorPalette();
+    expect(store.dispatch).toHaveBeenCalledWith(
+      new SetSelectedColorPalette(component.colorPalette.id)
+    );
+    expect(router.navigate).toHaveBeenCalledWith([
+      `/color-palette/${component.colorPalette.id}`
+    ]);
   });
 });

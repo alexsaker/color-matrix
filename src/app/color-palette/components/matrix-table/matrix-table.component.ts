@@ -1,14 +1,9 @@
-import { FontWeight } from '../../enums/font-weight.enum';
-import { ColorPalette } from '../../models/color-palette.model';
-import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectionStrategy
-} from '@angular/core';
-import { ColorPaletteMatrix } from '../../models/color-palette-matrix.model';
-import { ColorMatrixService } from '../../services/color-matrix.service';
-import { ColorMatrixCell } from '../../models/color-matrix.model';
+import { ColorMatrixCell } from './../../../core/models/color-matrix.model';
+import { ColorMatrixService } from './../../../core/services/color-matrix.service';
+import { ColorPaletteMatrix } from './../../../core/models/color-palette-matrix.model';
+import { ColorPalette } from './../../../core/models/color-palette.model';
+import { FontWeight } from '../../../core/enums/font-weight.enum';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cm-matrix-table',
@@ -16,13 +11,13 @@ import { ColorMatrixCell } from '../../models/color-matrix.model';
   styleUrls: ['./matrix-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatrixTableComponent implements OnInit {
+export class MatrixTableComponent {
   @Input()
   colorPalette: ColorPalette;
   @Input()
   selectedMatrix: ColorPaletteMatrix;
   constructor(private colorMatrixService: ColorMatrixService) {}
-  ngOnInit() {}
+
   public computeColorMatrixData(
     backgroundColor: string,
     foregroundColor: string,

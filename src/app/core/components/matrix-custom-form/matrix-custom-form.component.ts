@@ -1,12 +1,12 @@
+import { ColorMatrixSelection } from './../../models/color-matrix.model';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { ColorMatrixSelection } from '../../../color-palette/models/color-matrix.model';
-import { SetSelectedMatrix } from '../../../color-palette/store/color-palette.actions';
-import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
+import { SetSelectedMatrix } from '../../state/color-palette.actions';
+import { ColorPaletteState } from '../../state/color-palette.state';
 
 @Component({
   selector: 'cm-matrix-custom-form',

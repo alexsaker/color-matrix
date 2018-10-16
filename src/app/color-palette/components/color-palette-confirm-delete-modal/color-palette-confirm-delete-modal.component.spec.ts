@@ -1,3 +1,4 @@
+import { ColorPaletteState } from './../../../core/state/color-palette.state';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ColorPaletteConfirmDeleteModalComponent } from './color-palette-confirm-delete-modal.component';
@@ -8,7 +9,6 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
-import { ColorPaletteState } from '../../store/color-palette.state';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ColorPaletteConfirmDeleteModalComponent', () => {

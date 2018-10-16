@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ColorPaletteState } from '../store/color-palette.state';
+import { ColorPaletteState } from '../../core/state/color-palette.state';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,20 @@ export class ColorPaletteExistsGuard implements CanActivate {
   @Select(ColorPaletteState.colorPaletteIds)
   colorPaletteIds$: Observable<string[]>;
 
-  constructor(private store: Store) {}
+  constructor(private router: Router) {}
   canActivate(
-    next: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.colorPaletteIds$.pipe(
-      map(ids => ids.indexOf(state.url.split('/').pop()) !== -1)
+      map(ids => {
+        const colorPaletteExists =
+          ids.indexOf(state.url.split('/').pop()) !== -1;
+        if (!colorPaletteExists) {
+          this.router.navigate(['/color-palette']);
+        }
+        return colorPaletteExists;
+      })
     );
   }
 }

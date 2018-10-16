@@ -46,7 +46,7 @@ describe('ColorPaletteService', () => {
     spyOn(uuid, 'v4').and.returnValue('123');
     const expectedResult = {
       id: '123',
-      title: 'Amadeus Default',
+      title: 'Default',
       data: DEFAULT_COLOR_SPAN
     };
     expect(service.getDefaultColorPalette()).toEqual(expectedResult);

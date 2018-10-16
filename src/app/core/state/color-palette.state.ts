@@ -1,4 +1,6 @@
-import { Navigate } from '@ngxs/router-plugin';
+import { ColorPaletteService } from './../services/color-palette.service';
+import { ColorMatrixSelection } from './../models/color-matrix.model';
+import { ColorPalette } from './../models/color-palette.model';
 import {
   Action,
   NgxsOnInit,
@@ -11,21 +13,19 @@ import { range } from 'lodash';
 import * as uuid from 'uuid';
 
 import { FontWeight } from '../enums/font-weight.enum';
-import { ColorPalette } from '../models/color-palette.model';
-import { ColorPaletteService } from '../services/color-palette.service';
 import {
   ShowErrorSnackBar,
   ShowSuccessSnackBar
-} from './../../shared/store/app.actions';
-import { ColorMatrixSelection } from './../models/color-matrix.model';
+} from './../../shared/state/app.actions';
 import {
   DeleteColorPalette,
   LoadColorPalettes,
   SaveColorPalette,
-  SetErrors,
+  SetError,
   SetSelectedColorPalette,
   SetSelectedMatrix
 } from './color-palette.actions';
+import { Router } from '@angular/router';
 
 export const RANGE_START = 12;
 export const RANGE_END = 25;
@@ -88,6 +88,7 @@ export class ColorPaletteState implements NgxsOnInit {
   static selectedColorPalette(state: ColorPaletteStateModel): ColorPalette {
     return state.selected ? state.entities[state.selected] : null;
   }
+
   @Selector()
   static selectedMatrix(state: ColorPaletteStateModel): ColorMatrixSelection {
     return state.selectedMatrix;
@@ -95,42 +96,47 @@ export class ColorPaletteState implements NgxsOnInit {
 
   constructor(
     private store: Store,
+    private router: Router,
     private colorPaletteService: ColorPaletteService
   ) {}
   ngxsOnInit(ctx: StateContext<ColorPaletteStateModel>) {
     ctx.dispatch(new LoadColorPalettes());
     ctx.dispatch(new SetSelectedColorPalette());
   }
-  @Action(SetErrors)
-  setError(ctx: StateContext<ColorPaletteStateModel>, error: Error) {
-    ctx.patchState({ error: error });
+  @Action(SetError)
+  setError(ctx: StateContext<ColorPaletteStateModel>, action: SetError) {
+    ctx.patchState({ error: action.error });
   }
   @Action(LoadColorPalettes)
   loadColorPalettes(ctx: StateContext<ColorPaletteStateModel>) {
     try {
       const state = ctx.getState();
-      const storedState = localStorage.getItem('@@STATE');
-      const colorPalettesFromLocalStorage = storedState
-        ? JSON.parse(storedState).colorPalettes
-        : null;
+      const storedState = localStorage.getItem('@@STATE') || '{}';
+      const parsedStoredState = JSON.parse(storedState);
+      const colorPalettesFromLocalStorage =
+        parsedStoredState.colorPalettes || null;
+
       if (
-        !!colorPalettesFromLocalStorage &&
-        !!colorPalettesFromLocalStorage.ids &&
-        colorPalettesFromLocalStorage.ids.length
+        !(
+          !!colorPalettesFromLocalStorage &&
+          !!colorPalettesFromLocalStorage.ids &&
+          colorPalettesFromLocalStorage.ids.length
+        )
       ) {
-        return;
+        const colorPalette: ColorPalette = this.colorPaletteService.getDefaultColorPalette();
+        const colorPaletteDefaultEntity = {};
+        colorPaletteDefaultEntity[colorPalette.id] = colorPalette;
+        ctx.setState({
+          ...state,
+          ids: [colorPalette.id],
+          entities: colorPaletteDefaultEntity,
+          selected: colorPalette.id
+        });
+      } else {
+        ctx.setState({ ...colorPalettesFromLocalStorage });
       }
-      const colorPalette: ColorPalette = this.colorPaletteService.getDefaultColorPalette();
-      const colorPaletteDefaultEntity = {};
-      colorPaletteDefaultEntity[colorPalette.id] = colorPalette;
-      ctx.setState({
-        ...state,
-        ids: [colorPalette.id],
-        entities: colorPaletteDefaultEntity,
-        selected: colorPalette.id
-      });
     } catch (error) {
-      ctx.dispatch(new SetErrors([error]));
+      ctx.dispatch(new SetError(error));
     }
   }
 
@@ -159,7 +165,7 @@ export class ColorPaletteState implements NgxsOnInit {
           ? 'Color Palette has been created successfully'
           : 'Color Palette has been saved successfully';
       this.store.dispatch(new ShowSuccessSnackBar(snackBarMessage));
-      this.store.dispatch(new Navigate([`/color-palette/${colorPalette.id}`]));
+      this.router.navigate([`/color-palette/${colorPalette.id}`]);
     } catch (error) {
       this.store.dispatch(new ShowErrorSnackBar(error.message));
       ctx.patchState({ error: error });
@@ -178,9 +184,10 @@ export class ColorPaletteState implements NgxsOnInit {
       delete stateEntities[action.id];
       ctx.patchState({
         ids: [...stateIds],
-        entities: { ...stateEntities }
+        entities: { ...stateEntities },
+        selected: state.selected === action.id ? null : state.selected
       });
-      this.store.dispatch(new Navigate([`/color-palette`]));
+      this.router.navigate([`/color-palette`]);
 
       this.store.dispatch(
         new ShowSuccessSnackBar('Color Palette has been deleted successfully.')

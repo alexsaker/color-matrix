@@ -1,9 +1,9 @@
+import { ColorPalette } from './../../models/color-palette.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { colorPaletteValidator } from './color-palette.validator';
-import { ColorPalette } from '../../../color-palette/models/color-palette.model';
 
 @Component({
   selector: 'cm-color-palette-save-modal',

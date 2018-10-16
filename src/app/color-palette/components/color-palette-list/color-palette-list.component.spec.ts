@@ -1,4 +1,4 @@
-import { ColorPalette } from './../../models/color-palette.model';
+import { ColorPalette } from './../../../core/models/color-palette.model';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '../../../../../node_modules/@angular/core';

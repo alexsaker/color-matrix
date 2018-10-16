@@ -1,4 +1,6 @@
-import { Navigate } from '@ngxs/router-plugin';
+import { ColorPalette } from './../../models/color-palette.model';
+import { ColorPaletteSaveModalComponent } from './../../../core/components/color-palette-save-modal/color-palette-save-modal.component';
+import { HeaderType } from './../../../core/enums/header.enum';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NavigationEnd, Router } from '@angular/router';
@@ -6,13 +8,10 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import * as uuid from 'uuid';
 
-import { ColorPalette } from '../../../color-palette/models/color-palette.model';
-import { SaveColorPalette } from '../../../color-palette/store/color-palette.actions';
-import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
-import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/color-palette-save-modal.component';
+import { SaveColorPalette } from '../../../core/state/color-palette.actions';
+import { ColorPaletteState } from '../../../core/state/color-palette.state';
 import { ColorPaletteConfirmDeleteModalComponent } from './../../../color-palette/components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
-import { DeleteColorPalette } from './../../../color-palette/store/color-palette.actions';
-import { HeaderType } from './../../enums/header.enum';
+import { DeleteColorPalette } from './../../../core/state/color-palette.actions';
 
 @Component({
   selector: 'cm-navigation',
@@ -49,17 +48,17 @@ export class NavigationComponent implements OnInit {
         } else if (events.url.match(/^\/color\-palette\/[\w+\-]+$/)) {
           this.currentHeaderType = HeaderType.DETAILED_COLOR_PALETTE;
         } else {
-          this.currentHeaderType = HeaderType.COLOR_PALETTE;
+          this.currentHeaderType = null;
         }
       }
     });
   }
 
   public goToHelp() {
-    this.store.dispatch(new Navigate(['/color-palette/help']));
+    this.router.navigate(['/color-palette/help']);
   }
   public goBackToColorPaletteList() {
-    this.store.dispatch(new Navigate(['/color-palette']));
+    this.router.navigate(['/color-palette']);
   }
 
   public createColorPalette() {

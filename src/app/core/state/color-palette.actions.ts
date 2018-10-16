@@ -1,5 +1,5 @@
+import { ColorPalette } from './../models/color-palette.model';
 import { FontWeight } from '../enums/font-weight.enum';
-import { ColorPalette } from '../models/color-palette.model';
 
 export class LoadColorPalettes {
   static readonly type = '[ColorPalette] LoadColorPalettes';
@@ -15,9 +15,9 @@ export class DeleteColorPalette {
   constructor(public id: string) {}
 }
 
-export class SetErrors {
-  static readonly type = '[ColorPalette] SetErrors';
-  constructor(public errors: Error[]) {}
+export class SetError {
+  static readonly type = '[ColorPalette] SetError';
+  constructor(public error: Error) {}
 }
 
 export class SetSelectedColorPalette {

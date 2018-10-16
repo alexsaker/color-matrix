@@ -1,9 +1,13 @@
+import { ColorPaletteState } from './../../core/state/color-palette.state';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed } from '@angular/core/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { ColorPaletteState } from '../store/color-palette.state';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  Router
+} from '@angular/router';
 import { ColorPaletteExistsGuard } from './color-palette-exists.guard';
 
 export const DEFAULT_STATE = {
@@ -17,6 +21,7 @@ describe('ColorPaletteExistsGuard', () => {
   let colorPaletteExistsGuard: ColorPaletteExistsGuard;
   let activatedRouteSnapshot: ActivatedRouteSnapshot;
   let routerStateSnapshot: RouterStateSnapshot;
+  let router: Router;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -25,7 +30,10 @@ describe('ColorPaletteExistsGuard', () => {
       ],
       providers: [
         ColorPaletteExistsGuard,
-        Store,
+        {
+          provide: Router,
+          useValue: jasmine.createSpyObj('Router', ['navigate'])
+        },
         {
           provide: ActivatedRouteSnapshot,
           useValue: jasmine.createSpyObj('ActivatedRouteSnapshot', ['toString'])
@@ -41,6 +49,7 @@ describe('ColorPaletteExistsGuard', () => {
     colorPaletteExistsGuard = TestBed.get(ColorPaletteExistsGuard);
     activatedRouteSnapshot = TestBed.get(ActivatedRouteSnapshot);
     routerStateSnapshot = TestBed.get(RouterStateSnapshot);
+    router = TestBed.get(Router);
   });
 
   describe('CanActivate', () => {
@@ -59,6 +68,7 @@ describe('ColorPaletteExistsGuard', () => {
       colorPaletteExistsGuard
         .canActivate(activatedRouteSnapshot, routerStateSnapshot)
         .subscribe(result => {
+          expect(router.navigate).toHaveBeenCalledWith(['/color-palette']);
           expect(result).toBeFalsy();
         });
     });

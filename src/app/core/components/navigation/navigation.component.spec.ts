@@ -1,13 +1,5 @@
-import { Navigate } from '@ngxs/router-plugin';
-import { ColorPaletteListComponent } from './../../../color-palette/components/color-palette-list/color-palette-list.component';
-import { ColorPalette } from './../../../color-palette/models/color-palette.model';
-import { DeleteColorPalette } from './../../../color-palette/store/color-palette.actions';
-import { ColorPaletteConfirmDeleteModalComponent } from './../../../color-palette/components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
-import {
-  CUSTOM_ELEMENTS_SCHEMA,
-  Component,
-  NO_ERRORS_SCHEMA
-} from '@angular/core';
+import { ColorPalette } from './../../models/color-palette.model';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatButtonModule,
@@ -23,11 +15,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import { of } from 'rxjs';
 import * as uuid from 'uuid';
-import { SaveColorPalette } from '../../../color-palette/store/color-palette.actions';
-import { ColorPaletteState } from '../../../color-palette/store/color-palette.state';
+
 import { ColorPaletteSaveModalComponent } from '../color-palette-save-modal/color-palette-save-modal.component';
+import { MockComponent, mockRoutes } from './../../../../../mock/routes.mock';
+import { ColorPaletteConfirmDeleteModalComponent } from './../../../color-palette/components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
+import {
+  DeleteColorPalette,
+  SaveColorPalette
+} from './../../state/color-palette.actions';
+import { ColorPaletteState } from './../../state/color-palette.state';
 import { NavigationComponent } from './navigation.component';
-import { MockComponent, mockRoutes } from '../../../../../mock/routes.mock';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -74,7 +71,7 @@ describe('NavigationComponent', () => {
   });
 
   it('Should initialize', () => {
-    spyOn(router.events, 'subscribe');
+    spyOn(router.events, 'subscribe').and.callFake(() => of({}));
     spyOn(component.selectedColorPalette$, 'subscribe');
     component.ngOnInit();
     expect(router.events.subscribe).toHaveBeenCalled();
@@ -82,19 +79,15 @@ describe('NavigationComponent', () => {
   });
 
   it('Should navigate to help when goToHelp method called', () => {
-    spyOn(store, 'dispatch');
+    spyOn(router, 'navigate').and.callFake(() => {});
     component.goToHelp();
-    expect(store.dispatch).toHaveBeenCalledWith(
-      new Navigate(['/color-palette/help'])
-    );
+    expect(router.navigate).toHaveBeenCalledWith(['/color-palette/help']);
   });
 
   it('Should navigate to color palette list when goBackToColorPaletteList method called', () => {
-    spyOn(store, 'dispatch');
+    spyOn(router, 'navigate').and.callFake(() => {});
     component.goBackToColorPaletteList();
-    expect(store.dispatch).toHaveBeenCalledWith(
-      new Navigate(['/color-palette'])
-    );
+    expect(router.navigate).toHaveBeenCalledWith(['/color-palette']);
   });
 
   describe('When createColorPalette activated', () => {

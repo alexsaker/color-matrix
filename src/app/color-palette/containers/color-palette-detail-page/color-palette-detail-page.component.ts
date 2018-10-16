@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Store, Select } from '@ngxs/store';
-import { ColorPaletteState } from '../../store/color-palette.state';
-import { Observable } from 'rxjs';
-import { ColorPaletteMatrix } from '../../models/color-palette-matrix.model';
+import { ColorPaletteMatrix } from './../../../core/models/color-palette-matrix.model';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SetSelectedColorPalette } from '../../store/color-palette.actions';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+
+import { SetSelectedColorPalette } from '../../../core/state/color-palette.actions';
+import { ColorPaletteState } from '../../../core/state/color-palette.state';
 
 @Component({
   selector: 'cm-color-palette-detail-page',
@@ -14,7 +15,7 @@ import { SetSelectedColorPalette } from '../../store/color-palette.actions';
 })
 export class ColorPaletteDetailPageComponent implements OnInit {
   @Select(ColorPaletteState.selectedColorPalette)
-  selectedColorPalette$: Observable<string[]>;
+  selectedColorPalette$: Observable<string>;
   @Select(ColorPaletteState.selectedMatrix)
   selectedMatrix$: Observable<ColorPaletteMatrix>;
 

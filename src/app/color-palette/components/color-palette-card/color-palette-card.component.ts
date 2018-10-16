@@ -1,15 +1,16 @@
+import { ColorPalette } from './../../../core/models/color-palette.model';
+import {
+  DeleteColorPalette,
+  SaveColorPalette,
+  SetSelectedColorPalette
+} from './../../../core/state/color-palette.actions';
+import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import * as uuidv4 from 'uuid/v4';
 
 import { ColorPaletteSaveModalComponent } from '../../../core/components/color-palette-save-modal/color-palette-save-modal.component';
-import { ColorPalette } from '../../models/color-palette.model';
-import {
-  DeleteColorPalette,
-  SaveColorPalette
-} from '../../store/color-palette.actions';
 import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
 
 @Component({
@@ -20,7 +21,11 @@ import { ColorPaletteConfirmDeleteModalComponent } from '../color-palette-confir
 export class ColorPaletteCardComponent implements OnInit {
   @Input()
   colorPalette: ColorPalette;
-  constructor(private store: Store, private dialog: MatDialog) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {}
 
@@ -80,8 +85,7 @@ export class ColorPaletteCardComponent implements OnInit {
   }
 
   public goToColorPalette(): void {
-    this.store.dispatch(
-      new Navigate([`/color-palette/${this.colorPalette.id}`])
-    );
+    this.store.dispatch(new SetSelectedColorPalette(this.colorPalette.id));
+    this.router.navigate([`/color-palette/${this.colorPalette.id}`]);
   }
 }

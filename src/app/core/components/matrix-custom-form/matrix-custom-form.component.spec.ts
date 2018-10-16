@@ -1,3 +1,11 @@
+import { FontWeight } from './../../enums/font-weight.enum';
+import { SetSelectedMatrix } from './../../state/color-palette.actions';
+import {
+  ColorPaletteState,
+  RANGE_START,
+  RANGE_END
+} from './../../state/color-palette.state';
+
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -6,14 +14,7 @@ import { MatSelectModule } from '@angular/material';
 import { NgxsModule, Store } from '@ngxs/store';
 import { range } from 'lodash';
 
-import { FontWeight } from '../../../color-palette/enums/font-weight.enum';
-import {
-  ColorPaletteState,
-  RANGE_END,
-  RANGE_START
-} from '../../../color-palette/store/color-palette.state';
 import { MatrixCustomFormComponent } from './matrix-custom-form.component';
-import { SetSelectedMatrix } from '../../../color-palette/store/color-palette.actions';
 
 export const DEFAULT_STATE = {
   colorPalettes: {

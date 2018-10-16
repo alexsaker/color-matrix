@@ -1,9 +1,8 @@
+import { ColorPalette } from './../../../core/models/color-palette.model';
+import { ColorPaletteState } from './../../../core/state/color-palette.state';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-
-import { ColorPalette } from '../../models/color-palette.model';
-import { ColorPaletteState } from '../../store/color-palette.state';
 
 @Component({
   selector: 'cm-color-palette-page',

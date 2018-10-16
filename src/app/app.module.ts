@@ -1,39 +1,32 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { MatSnackBarModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsModule } from '@ngxs/store';
 
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { AppState } from './shared/store/app.state';
-import { NgxsModule } from '@ngxs/store';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
-import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
-
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { MatSnackBarModule } from '@angular/material';
-import { environment } from '../environments/environment';
-
-const IMPORTS = [
-  BrowserModule,
-  AppRoutingModule,
-  CoreModule,
-  MatSnackBarModule,
-  NgxsModule.forRoot([AppState]),
-
-  NgxsStoragePluginModule.forRoot({
-    key: '@@STATE'
-  }),
-  NgxsRouterPluginModule.forRoot()
-];
-if (!environment.production) {
-  IMPORTS.push(NgxsReduxDevtoolsPluginModule.forRoot());
-  IMPORTS.push(NgxsLoggerPluginModule.forRoot());
-}
+import { ColorPaletteState } from './core/state/color-palette.state';
+import { AppState } from './shared/state/app.state';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [...IMPORTS],
+  imports: [
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    CoreModule,
+    MatSnackBarModule,
+    NgxsModule.forRoot([AppState, ColorPaletteState]),
+    NgxsStoragePluginModule.forRoot({
+      key: '@@STATE'
+    }),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production })
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

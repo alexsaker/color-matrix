@@ -1,11 +1,10 @@
+import { ColorMatrixCell } from './../../../core/models/color-matrix.model';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit
 } from '@angular/core';
-
-import { ColorMatrixCell } from '../../models/color-matrix.model';
 
 @Component({
   selector: 'cm-matrix-cell',

@@ -1,5 +1,8 @@
 :host {
   .color-palette-card {
+    .mat-card-title {
+      cursor: pointer;
+    }
     .mat-card-header {
       display: flex;
       justify-content: space-between;

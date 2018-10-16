@@ -38,7 +38,7 @@ export class ColorPaletteService {
   public getDefaultColorPalette(): ColorPalette {
     const cp: ColorPalette = {
       id: uuid.v4(),
-      title: 'Amadeus Default',
+      title: 'Default',
       data: this.DEFAULT_COLOR_SPAN
     };
     return cp;

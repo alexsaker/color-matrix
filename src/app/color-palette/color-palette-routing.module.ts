@@ -6,6 +6,7 @@ import { ColorPaletteDetailPageComponent } from './containers/color-palette-deta
 import { ColorPalettePageComponent } from './containers/color-palette-page/color-palette-page.component';
 import { ColorPaletteExistsGuard } from './guards/color-palette-exists.guard';
 
+const GUARDS = [ColorPaletteExistsGuard];
 export const routes: Routes = [
   {
     path: '',
@@ -22,7 +23,6 @@ export const routes: Routes = [
   }
 ];
 
-const GUARDS = [ColorPaletteExistsGuard];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

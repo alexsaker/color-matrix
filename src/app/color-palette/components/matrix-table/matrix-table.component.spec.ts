@@ -1,9 +1,9 @@
-import { ColorMatrixService } from './../../../color-palette/services/color-matrix.service';
+import { ColorMatrixService } from './../../../core/services/color-matrix.service';
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatrixTableComponent } from './matrix-table.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '../../../../../node_modules/@angular/core';
-import { FontWeight } from '../../enums/font-weight.enum';
+import { FontWeight } from '../../../core/enums/font-weight.enum';
 
 describe('MatrixTableComponent', () => {
   let component: MatrixTableComponent;
