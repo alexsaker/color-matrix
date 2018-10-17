@@ -14,9 +14,9 @@ import {
   MatSidenavModule,
   MatToolbarModule,
   MatDialogModule,
-  MatInputModule
+  MatInputModule,
+  MatMenuModule
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatrixCustomFormComponent } from './components/matrix-custom-form/matrix-custom-form.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -37,7 +37,9 @@ const MODULES = [
   MatSelectModule,
   ReactiveFormsModule,
   MatDialogModule,
-  MatInputModule
+  MatInputModule,
+  MatMenuModule,
+  LayoutModule
 ];
 const DECLARATIONS = [
   NavigationComponent,

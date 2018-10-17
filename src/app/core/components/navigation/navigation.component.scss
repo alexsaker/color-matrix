@@ -18,7 +18,7 @@
     padding-top: 0px;
   }
 
-  .mat-toolbar {
+  .mat-toolbar-row {
     z-index: 100;
     display: flex;
     justify-content: space-between;
@@ -40,6 +40,18 @@
       padding-left: 10px;
       .title {
         margin-left: 3px;
+        &.truncate-small {
+          max-width: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        &.truncate {
+          max-width: 250px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
     .custom-search {

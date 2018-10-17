@@ -1,3 +1,4 @@
+import { ScreenSize } from './../../enums/screen-size.enum';
 import { ColorPalette } from './../../models/color-palette.model';
 import { ColorPaletteSaveModalComponent } from './../../../core/components/color-palette-save-modal/color-palette-save-modal.component';
 import { HeaderType } from './../../../core/enums/header.enum';
@@ -12,6 +13,7 @@ import { SaveColorPalette } from '../../../core/state/color-palette.actions';
 import { ColorPaletteState } from '../../../core/state/color-palette.state';
 import { ColorPaletteConfirmDeleteModalComponent } from './../../../color-palette/components/color-palette-confirm-delete-modal/color-palette-confirm-delete-modal.component';
 import { DeleteColorPalette } from './../../../core/state/color-palette.actions';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'cm-navigation',
@@ -28,20 +30,46 @@ export class NavigationComponent implements OnInit {
   public currentHeaderType: HeaderType;
   public HeaderType = HeaderType;
   public selectedColorPaletteSnapShot: ColorPalette;
+  public currentScreenSize: ScreenSize;
+  public ScreenSize = ScreenSize;
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private breakPointObserver: BreakpointObserver
   ) {}
 
   ngOnInit() {
     this.selectedColorPalette$.subscribe(selectedColorPalette => {
       this.selectedColorPaletteSnapShot = selectedColorPalette;
     });
+    this.currentScreenSize = ScreenSize.LARGE;
+
+    this.breakPointObserver
+      .observe(['(max-width: 788px)', '(max-width: 499px)'])
+      .subscribe(result => {
+        if (
+          !result.breakpoints['(max-width: 788px)'] &&
+          !result.breakpoints['(max-width: 499px)']
+        ) {
+          this.currentScreenSize = ScreenSize.LARGE;
+        } else if (
+          result.breakpoints['(max-width: 788px)'] &&
+          !result.breakpoints['(max-width: 499px)']
+        ) {
+          this.currentScreenSize = ScreenSize.MEDIUM;
+        } else if (result.breakpoints['(max-width: 499px)']) {
+          this.currentScreenSize = ScreenSize.SMALL;
+        }
+      });
 
     this.router.events.subscribe(events => {
       if (events instanceof NavigationEnd) {
-        if (events.url.match(/^\/color\-palette$/)) {
+        console.log('URL', events.url);
+        if (
+          events.url.match(/^\/color\-palette$/) ||
+          events.url.match(/^\/$/)
+        ) {
           this.currentHeaderType = HeaderType.COLOR_PALETTE;
         } else if (events.url.match(/^\/color\-palette\/help$/)) {
           this.currentHeaderType = HeaderType.HELP;

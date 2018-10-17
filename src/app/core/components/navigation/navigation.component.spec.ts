@@ -1,3 +1,4 @@
+import { ScreenSize } from './../../enums/screen-size.enum';
 import { ColorPalette } from './../../models/color-palette.model';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -6,7 +7,8 @@ import {
   MatDialog,
   MatDialogModule,
   MatDialogRef,
-  MatToolbarModule
+  MatToolbarModule,
+  MatMenuModule
 } from '@angular/material';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +27,7 @@ import {
 } from './../../state/color-palette.actions';
 import { ColorPaletteState } from './../../state/color-palette.state';
 import { NavigationComponent } from './navigation.component';
+import { LayoutModule, BreakpointObserver } from '@angular/cdk/layout';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -38,9 +41,12 @@ describe('NavigationComponent', () => {
     title: 'colorPaletteForTest',
     data: ['#444', '#555']
   };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        MatMenuModule,
+        LayoutModule,
         MatDialogModule,
         MatToolbarModule,
         MatSidenavModule,
@@ -75,6 +81,7 @@ describe('NavigationComponent', () => {
     spyOn(component.selectedColorPalette$, 'subscribe');
     component.ngOnInit();
     expect(router.events.subscribe).toHaveBeenCalled();
+    expect(component.currentScreenSize).toEqual(ScreenSize.LARGE);
     expect(component.selectedColorPalette$.subscribe).toHaveBeenCalled();
   });
 
