@@ -1,17 +1,16 @@
 :host {
   .color-palette-card {
-    .mat-card-title {
-      cursor: pointer;
-    }
     .mat-card-header {
       display: flex;
       justify-content: space-between;
       .mat-card-title {
+        cursor: pointer;
         max-width: 190px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 15px;
+        font-size: 1.3em;
+        font-weight: 700;
       }
       .mat-icon {
         margin-bottom: 20px;

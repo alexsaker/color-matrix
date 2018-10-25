@@ -44,13 +44,21 @@ export class ColorPaletteSaveModalComponent implements OnInit {
       });
     } else {
       this.savePaletteFormGroup = new FormGroup({
-        colorPaletteTitle: new FormControl('', [
+        colorPaletteTitle: new FormControl('My palette', [
           Validators.required,
           Validators.minLength(this.LABEL_MIN_LENGTH),
           Validators.maxLength(this.LABEL_MAX_LENGTH)
         ]),
         colorPaletteData: new FormControl(
-          JSON.stringify(['#123456', '#234567', '#345678']),
+          JSON.stringify([
+            '#4400AA',
+            '#17E4FF',
+            '#FFF300',
+            '#FFFFFF',
+            '#FF00B2',
+            '#A8FFDD',
+            '#000000'
+          ]),
           [Validators.required, colorPaletteValidator]
         )
       });

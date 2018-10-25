@@ -17,6 +17,7 @@ import { MatrixCellComponent } from './components/matrix-cell/matrix-cell.compon
 import { MatrixTableComponent } from './components/matrix-table/matrix-table.component';
 import { ColorPaletteDetailPageComponent } from './containers/color-palette-detail-page/color-palette-detail-page.component';
 import { ColorPalettePageComponent } from './containers/color-palette-page/color-palette-page.component';
+import { ColorPaletteExistsGuard } from './guards/color-palette-exists.guard';
 
 const MODULES = [
   CoreModule,
@@ -43,7 +44,7 @@ const DECLARATIONS = [
 @NgModule({
   imports: MODULES,
   declarations: DECLARATIONS,
-  providers: [],
+  providers: [ColorPaletteExistsGuard],
   entryComponents: []
 })
 export class ColorPaletteModule {}

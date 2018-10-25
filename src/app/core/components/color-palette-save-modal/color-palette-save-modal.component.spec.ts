@@ -115,11 +115,11 @@ describe('ColorPaletteSaveModalComponent', () => {
       ).toBeTruthy();
     });
     it('should return an invalid form when empty', () => {
-      expect(component.savePaletteFormGroup.invalid).toBeTruthy();
+      expect(component.savePaletteFormGroup.invalid).toBeFalsy();
     });
 
     it('should return a valid form', () => {
-      expect(component.savePaletteFormGroup.valid).toBeFalsy();
+      expect(component.savePaletteFormGroup.valid).toBeTruthy();
       component.savePaletteFormGroup.controls['colorPaletteTitle'].setValue(
         'test'
       );

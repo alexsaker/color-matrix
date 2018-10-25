@@ -1,42 +1,46 @@
 <div class="help-container">
-    orem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at tellus enim. Morbi a fermentum odio, nec facilisis
-    mi. Curabitur sed finibus risus, et imperdiet sapien. Suspendisse iaculis quam ac dolor tincidunt luctus. Aenean sed
-    sem mollis, tristique ligula vitae, convallis purus. Vivamus feugiat turpis quis auctor placerat. Donec dignissim lorem
-    vitae est consectetur, nec fermentum enim vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada
-    fames ac turpis egestas. Donec nec malesuada eros. Quisque aliquam, nibh ut mollis aliquam, nisi enim euismod lacus,
-    a varius purus risus eget ligula. Donec at iaculis tortor, nec faucibus elit. Nunc commodo nunc at varius sagittis. Pellentesque
-    habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus
-    orci luctus et ultrices posuere cubilia Curae; Ut vitae massa cursus mi vulputate eleifend. Fusce quis gravida neque,
-    vel hendrerit nisi. In semper auctor sapien, sed sodales neque mattis vel. Nulla facilisi. Curabitur feugiat ultricies
-    justo, eget maximus nulla. Donec aliquet mollis mauris eu sollicitudin. Phasellus quis ipsum consectetur, congue enim
-    quis, suscipit ipsum. Ut iaculis imperdiet risus, quis consequat libero. Nam ac libero blandit, accumsan lorem sed, dignissim
-    libero. Integer iaculis, risus ut tincidunt facilisis, felis eros varius ipsum, quis iaculis mauris tortor sit amet felis.
-    Nulla interdum massa ut sagittis interdum. Vestibulum dui metus, sodales vitae velit nec, faucibus fermentum sapien.
-    Cras ipsum orci, lacinia ut risus at, condimentum dictum lectus. Nulla facilisi. Nullam sit amet ornare ex. Proin molestie
-    bibendum mollis. Cras volutpat, purus non sollicitudin lobortis, nulla arcu varius orci, quis tempor orci dui finibus
-    purus. Aenean tellus leo, elementum commodo justo at, feugiat congue nulla. Morbi vel magna lacinia, malesuada libero
-    eu, posuere massa. Donec euismod malesuada est, vel feugiat sem dapibus vel. Pellentesque malesuada metus velit, in lacinia
-    nibh faucibus vel. Suspendisse auctor, elit mollis viverra tristique, enim erat finibus velit, non eleifend eros nisi
-    eget mi. Morbi a ex ut lectus finibus venenatis. Ut elementum, metus faucibus dignissim tristique, metus lectus imperdiet
-    justo, sed interdum risus risus in lorem. Mauris vitae justo eget sem egestas accumsan et sed mauris. Fusce eget vehicula
-    est, vitae vehicula velit. Vivamus convallis, massa ac venenatis hendrerit, elit orci facilisis erat, eu feugiat nulla
-    libero id nunc. Suspendisse ac pellentesque felis. Aliquam erat volutpat. Praesent pulvinar justo in nunc sollicitudin
-    elementum. Aliquam commodo nunc non turpis pellentesque, vitae rutrum augue fringilla. Proin vel odio vel dolor semper
-    convallis eget quis urna. Nullam vehicula a neque eu porta. Praesent sit amet mi eget neque vehicula tincidunt ac ut
-    diam. In sollicitudin erat et risus dictum viverra. Praesent placerat in est in porttitor. Nulla orci urna, malesuada
-    eget pretium dictum, laoreet quis orci. Curabitur viverra dui nisi. Integer a libero urna. Pellentesque id auctor urna.
-    Praesent elit sem, condimentum sit amet mattis sed, euismod ac eros. Quisque eget mauris quam. Praesent viverra, justo
-    ut dignissim lobortis, ligula purus scelerisque enim, non dictum quam nisl et velit.
+  <div class="description">
+    <h2>What is Colors-for-all?</h2>
+    <div class="subsection">
+      Colors-for-all enables you to easily check color contrasts and WCAG compliance (AA or AAA levels as defined by
+      W3C) between specific colors in one shot !
+      This online application is available for UX/UI designers or any other people involved in digital accessibility.
+    </div>
+  </div>
+  <div class="features">
+    <h2>Features</h2>
+      <div class="subsection">
+      You can perform the following actions for each palette :
+      <ul>
+        <li>create</li>
+        <li>edit</li>
+        <li>duplicate</li>
+        <li>delete</li>
+        <li>save locally</li>
+      </ul>
+      There is no limit in the number of colors for each palette. The application generates automatically a matrix
+      (same colors horizontally and vertically) from this palette. Each cell of the matrix is the combination between 2
+      colors (foreground/background). The ratio and WCAG level is automatically computed and displayed for each
+      combination. All accessible combinations (AA or AAA) are visually highlighted.
+    </div>
+    <div class="subsection">
+      Thanks to this tool, you can wisely choose the best combinations of colors (foreground/background) to use in your
+      own projects. This helps you design more “accessible” products.
+    </div>
+  </div>
 
+
+  <div class="rules">
+    <h2>WCAG Rules</h2>
+    Please find below a summary of the rules as defined by <a target="_blank" href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html"
+      class="href">WCAG 2.0</a> regarding contrast ratio:
     <div class="table-container">
       <table>
         <thead>
           <tr>
             <th rowspan="2"></th>
-            <th colspan="2">RATIO < 3 </th>
-            <th colspan="2">3 &le; RATIO < 4 .5</th>
-            <th colspan="2">4.5 &le; RATIO < 7</th>
-            <th colspan="2">RATIO &ge; 7</th>
+            <th colspan="2">RATIO < 3 </th> <th colspan="2">3 &le; RATIO < 4 .5</th> <th colspan="2">4.5 &le; RATIO <
+                    7</th> <th colspan="2">RATIO &ge; 7</th>
           </tr>
           <tr>
             <th>NORMAL</th>
@@ -51,8 +55,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>SIZE < 18.66px</td>
-            <td>X</td>
+            <td>SIZE < 18.66px</td> <td>X</td>
             <td>X</td>
             <td>X</td>
             <td>X</td>
@@ -62,16 +65,15 @@
             <td>AAA</td>
           </tr>
           <tr>
-            <td>18.66px &le; SIZE < 24px</td>
+            <td>18.66px &le; SIZE < 24px</td> <td>X</td>
             <td>X</td>
-            <td>X</td>
             <td>AA</td>
             <td>AA</td>
             <td>AA</td>
             <td>AAA</td>
             <td>AAA</td>
             <td>AAA</td>
-    
+
           </tr>
           <tr>
             <td>SIZE &ge; 24px</td>
@@ -87,5 +89,20 @@
         </tbody>
       </table>
     </div>
-    
+  </div>
+
+  <div class="contributors">
+    <h2>Contributors</h2>
+    <ul>
+      <li>Jean-Pierre Boutherin</li>
+      <li>Alexandre Saker</li>
+      <li>Géraldine Brunstein</li>
+      <li>Fabien Berger</li>
+      <li>Vincent Léon</li>
+    </ul>
+  </div>
+
+
+
+
 </div>
