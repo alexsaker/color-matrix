@@ -1,3 +1,4 @@
+import { AccessibilityInfo } from './../models/accessibility-info.model';
 import { ColorPaletteService } from './../services/color-palette.service';
 import { ColorMatrixSelection } from './../models/color-matrix.model';
 import { ColorPalette } from './../models/color-palette.model';
@@ -26,6 +27,7 @@ import {
   SetSelectedMatrix
 } from './color-palette.actions';
 import { Router } from '@angular/router';
+import { ColorMatrixService } from '../services/color-matrix.service';
 
 export const RANGE_START = 12;
 export const RANGE_END = 25;
@@ -50,7 +52,8 @@ export const DEFAULT_COLOR_PALETTE_STATE = {
     FontWeight.SEVEN_HUNDRED,
     FontWeight.EIGHT_HUNDRED,
     FontWeight.NINE_HUNDRED
-  ]
+  ],
+  accessibilityInfo: { doubleA: null, tripleA: null }
 };
 export interface ColorPaletteStateModel {
   ids: string[];
@@ -60,6 +63,7 @@ export interface ColorPaletteStateModel {
   selectedMatrix: ColorMatrixSelection;
   sizes: number[];
   fontWeights: string[];
+  accessibilityInfo: AccessibilityInfo;
 }
 @State<ColorPaletteStateModel>({
   name: 'colorPalettes',
@@ -94,10 +98,16 @@ export class ColorPaletteState implements NgxsOnInit {
     return state.selectedMatrix;
   }
 
+  @Selector()
+  static accessibilityInfo(state: ColorPaletteStateModel): AccessibilityInfo {
+    return state.accessibilityInfo;
+  }
+
   constructor(
     private store: Store,
     private router: Router,
-    private colorPaletteService: ColorPaletteService
+    private colorPaletteService: ColorPaletteService,
+    private colorMatrixService: ColorMatrixService
   ) {}
   ngxsOnInit(ctx: StateContext<ColorPaletteStateModel>) {
     ctx.dispatch(new LoadColorPalettes());
@@ -220,7 +230,11 @@ export class ColorPaletteState implements NgxsOnInit {
     action: SetSelectedMatrix
   ) {
     ctx.patchState({
-      selectedMatrix: { size: action.size, fontWeight: action.fontWeight }
+      selectedMatrix: { size: action.size, fontWeight: action.fontWeight },
+      accessibilityInfo: this.colorMatrixService.calculateAccessibilityInfo(
+        action.size,
+        action.fontWeight
+      )
     });
   }
 }

@@ -37,14 +37,14 @@ export class MatrixCustomFormComponent implements OnInit {
       .subscribe(defaultSelectedMatrix => {
         if (!!defaultSelectedMatrix) {
           this.stopSelectedMatrixSubscription.next(true);
-          this.customPaletteSearch.setValue({
-            size: defaultSelectedMatrix.size,
-            fontWeight: defaultSelectedMatrix.fontWeight
-          });
           this.customPaletteSearch.valueChanges.subscribe(changes => {
             this.store.dispatch(
               new SetSelectedMatrix(changes.size, changes.fontWeight)
             );
+          });
+          this.customPaletteSearch.setValue({
+            size: defaultSelectedMatrix.size,
+            fontWeight: defaultSelectedMatrix.fontWeight
           });
         }
       });

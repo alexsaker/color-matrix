@@ -3,6 +3,7 @@ import { inputToRGB } from '@ctrl/tinycolor';
 
 import { FontWeight } from '../../core/enums/font-weight.enum';
 import { ColorMatrixCell } from '../models/color-matrix.model';
+import { AccessibilityInfo } from './../models/accessibility-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,87 @@ export class ColorMatrixService {
       compliance: level,
       ratio: ratio
     };
+  }
+
+  public calculateAccessibilityInfo(
+    size: number,
+    fontWeight: FontWeight
+  ): AccessibilityInfo {
+    let accessibilityInfo: AccessibilityInfo = {
+      doubleA: null,
+      tripleA: null
+    };
+    if (size < 18.66) {
+      // NORMAL
+      if (
+        fontWeight === FontWeight.LIGHTER ||
+        fontWeight === FontWeight.NORMAL ||
+        fontWeight === FontWeight.ONE_HUNDRED ||
+        fontWeight === FontWeight.TWO_HUNDRED ||
+        fontWeight === FontWeight.THREE_HUNDRED ||
+        fontWeight === FontWeight.FOUR_HUNDRED ||
+        fontWeight === FontWeight.FIVE_HUNDRED ||
+        fontWeight === FontWeight.SIX_HUNDRED
+      ) {
+        accessibilityInfo = {
+          doubleA: 4.5,
+          tripleA: 7
+        };
+      } else {
+        // BOLD
+        accessibilityInfo = {
+          doubleA: 4.5,
+          tripleA: 7
+        };
+      }
+    } else if (size >= 18.66 && size < 24) {
+      // NORMAL
+      if (
+        fontWeight === FontWeight.LIGHTER ||
+        fontWeight === FontWeight.NORMAL ||
+        fontWeight === FontWeight.ONE_HUNDRED ||
+        fontWeight === FontWeight.TWO_HUNDRED ||
+        fontWeight === FontWeight.THREE_HUNDRED ||
+        fontWeight === FontWeight.FOUR_HUNDRED ||
+        fontWeight === FontWeight.FIVE_HUNDRED ||
+        fontWeight === FontWeight.SIX_HUNDRED
+      ) {
+        accessibilityInfo = {
+          doubleA: 3,
+          tripleA: 7
+        };
+      } else {
+        // BOLD
+        accessibilityInfo = {
+          doubleA: 3,
+          tripleA: 4.5
+        };
+      }
+    } else if (size >= 24) {
+      // NORMAL
+      if (
+        fontWeight === FontWeight.LIGHTER ||
+        fontWeight === FontWeight.NORMAL ||
+        fontWeight === FontWeight.ONE_HUNDRED ||
+        fontWeight === FontWeight.TWO_HUNDRED ||
+        fontWeight === FontWeight.THREE_HUNDRED ||
+        fontWeight === FontWeight.FOUR_HUNDRED ||
+        fontWeight === FontWeight.FIVE_HUNDRED ||
+        fontWeight === FontWeight.SIX_HUNDRED
+      ) {
+        accessibilityInfo = {
+          doubleA: 3,
+          tripleA: 4.5
+        };
+      } else {
+        // BOLD
+        accessibilityInfo = {
+          doubleA: 3,
+          tripleA: 4.5
+        };
+      }
+    }
+    return accessibilityInfo;
   }
 
   private getLuminance(r: number, g: number, b: number) {

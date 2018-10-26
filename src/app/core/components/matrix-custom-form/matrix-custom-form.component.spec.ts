@@ -1,3 +1,4 @@
+import { AccessibilityInfoPanelComponent } from './../accessibility-info-panel/accessibility-info-panel.component';
 import { FontWeight } from './../../enums/font-weight.enum';
 import { SetSelectedMatrix } from './../../state/color-palette.actions';
 import {
@@ -44,7 +45,7 @@ describe('MatrixCustomFormComponent', () => {
         RouterTestingModule.withRoutes([])
       ],
       providers: [],
-      declarations: [MatrixCustomFormComponent]
+      declarations: [MatrixCustomFormComponent, AccessibilityInfoPanelComponent]
     }).compileComponents();
   }));
 

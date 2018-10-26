@@ -9,11 +9,12 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select formControlName="fontWeight" placeholder="fontWeight">
+      <mat-select formControlName="fontWeight" placeholder="Weight">
         <mat-option *ngFor="let fw of colorPalettesFontWeights$ | async" [value]="fw">
           {{fw}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
+  <cm-accessibility-info-panel></cm-accessibility-info-panel>
 </div>

@@ -1,3 +1,4 @@
+import { AccessibilityInfoPanelComponent } from './components/accessibility-info-panel/accessibility-info-panel.component';
 import { ColorMatrixService } from './services/color-matrix.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -46,7 +47,8 @@ const DECLARATIONS = [
   PageNotFoundComponent,
   MatrixCustomFormComponent,
   ColorPaletteSaveModalComponent,
-  ColorPaletteConfirmDeleteModalComponent
+  ColorPaletteConfirmDeleteModalComponent,
+  AccessibilityInfoPanelComponent
 ];
 
 @NgModule({

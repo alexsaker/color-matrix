@@ -1,3 +1,4 @@
+import { ColorMatrixService } from './../services/color-matrix.service';
 import { ColorPalette } from './../models/color-palette.model';
 import { ColorPaletteService } from './../services/color-palette.service';
 import { TestBed } from '@angular/core/testing';
@@ -51,7 +52,8 @@ const fakeColorPaletteState = {
     FontWeight.SEVEN_HUNDRED,
     FontWeight.EIGHT_HUNDRED,
     FontWeight.NINE_HUNDRED
-  ]
+  ],
+  accessibilityInfo: { doubleA: 4.5, tripleA: 7 }
 };
 
 const defaultColorPaletteId = '111';
@@ -90,6 +92,7 @@ describe('ColorPaletteState', () => {
   let store: Store;
   let router: Router;
   let colorPaletteService: ColorPaletteService;
+  let colorMatrixService: ColorMatrixService;
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
@@ -101,6 +104,7 @@ describe('ColorPaletteState', () => {
     store = TestBed.get(Store);
     router = TestBed.get(Router);
     colorPaletteService = TestBed.get(ColorPaletteService);
+    colorMatrixService = TestBed.get(ColorMatrixService);
     spyOn(router, 'navigate').and.callFake(() => {});
   });
   describe('Select', () => {
@@ -133,6 +137,10 @@ describe('ColorPaletteState', () => {
           FontWeight.EIGHT_HUNDRED,
           FontWeight.NINE_HUNDRED
         ]);
+        expect(state.accessibilityInfo).toEqual({
+          doubleA: null,
+          tripleA: null
+        });
       });
     });
 
@@ -205,6 +213,12 @@ describe('ColorPaletteState', () => {
       expect(ColorPaletteState.selectedMatrix(fakeColorPaletteState)).toEqual(
         expectedResult
       );
+    });
+    it('Should select accessibility info', async () => {
+      const expectedResult = { doubleA: 4.5, tripleA: 7 };
+      expect(
+        ColorPaletteState.accessibilityInfo(fakeColorPaletteState)
+      ).toEqual(expectedResult);
     });
   });
 
