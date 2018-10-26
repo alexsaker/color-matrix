@@ -28,7 +28,8 @@ export const DEFAULT_STATE = {
       FontWeight.NORMAL,
       FontWeight.BOLD,
       FontWeight.BOLDER
-    ]
+    ],
+    accessibilityInfo: { doubleA: 3, tripleA: 7 }
   }
 };
 describe('MatrixCustomFormComponent', () => {

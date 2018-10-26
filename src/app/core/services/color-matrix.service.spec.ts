@@ -45,6 +45,61 @@ describe('ColorMatrixService', () => {
       });
     });
   });
+
+  describe('calculateAccessibilityInfo', () => {
+    it('should return doubleA 4.5 and tripleA 7 when size=18.65 and font normal', () => {
+      const expectedResult = { doubleA: 4.5, tripleA: 7 };
+      const result = service.calculateAccessibilityInfo(
+        18.65,
+        FontWeight.NORMAL
+      );
+      expect(result).toEqual(expectedResult);
+    });
+    it('should return doubleA 4.5 and tripleA 7 when size=18.65 and font bold', () => {
+      const expectedResult = { doubleA: 4.5, tripleA: 7 };
+      const result = service.calculateAccessibilityInfo(15, FontWeight.BOLD);
+      expect(result).toEqual(expectedResult);
+    });
+    it('should return doubleA 3 and tripleA 7 when size=18.66 and font normal', () => {
+      const expectedResult = { doubleA: 3, tripleA: 7 };
+      const result = service.calculateAccessibilityInfo(
+        18.66,
+        FontWeight.NORMAL
+      );
+      expect(result).toEqual(expectedResult);
+    });
+    it('should return doubleA 3 and tripleA 7 when size=23.99 and font normal', () => {
+      const expectedResult = { doubleA: 3, tripleA: 7 };
+      const result = service.calculateAccessibilityInfo(
+        23.99,
+        FontWeight.NORMAL
+      );
+      expect(result).toEqual(expectedResult);
+    });
+    it('should return doubleA 3 and tripleA 4.5 when size=18.66 and font bold', () => {
+      const expectedResult = { doubleA: 3, tripleA: 4.5 };
+      const result = service.calculateAccessibilityInfo(18.66, FontWeight.BOLD);
+      expect(result).toEqual(expectedResult);
+    });
+    it('should return doubleA 3 and tripleA 4.5 when size=23.99 and font bold', () => {
+      const expectedResult = { doubleA: 3, tripleA: 4.5 };
+      const result = service.calculateAccessibilityInfo(23.99, FontWeight.BOLD);
+      expect(result).toEqual(expectedResult);
+    });
+    it('should return doubleA 3 and tripleA 4.5 when size>24 and font normal', () => {
+      const expectedResult = { doubleA: 3, tripleA: 4.5 };
+      const result = service.calculateAccessibilityInfo(
+        24.01,
+        FontWeight.NORMAL
+      );
+      expect(result).toEqual(expectedResult);
+    });
+    it('should return doubleA 3 and tripleA 4.5 when size>24 and font bold', () => {
+      const expectedResult = { doubleA: 3, tripleA: 4.5 };
+      const result = service.calculateAccessibilityInfo(24.01, FontWeight.BOLD);
+      expect(result).toEqual(expectedResult);
+    });
+  });
   describe('getLuminance', () => {
     it('should return luminance', () => {
       const r = 2;
