@@ -14,6 +14,8 @@ import {
 })
 export class MatrixCellComponent implements OnInit {
   @Input()
+  numberOfColors: number;
+  @Input()
   data: ColorMatrixCell;
   @Input()
   type: string;

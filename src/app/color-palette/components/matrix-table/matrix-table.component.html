@@ -15,7 +15,7 @@
             <div>{{backgroundColor}}</div>
           </th>
           <td [style.backgroundColor]="backgroundColor" *ngFor="let foregroundColor of colorPalette?.data">
-            <cm-matrix-cell [data]="computeColorMatrixData(backgroundColor,foregroundColor,selectedMatrix.size,selectedMatrix.fontWeight)"></cm-matrix-cell>
+            <cm-matrix-cell [numberOfColors]="colorPalette?.data.length" [data]="computeColorMatrixData(backgroundColor,foregroundColor,selectedMatrix.size,selectedMatrix.fontWeight)"></cm-matrix-cell>
           </td>
       </tr>
     </tbody>
